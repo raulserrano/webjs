@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plataforma de aprendizaje interactivo de JavaScript para Formación Profesional (Ciclo Superior DAW - Módulo 0612 Desarrollo Web en Entorno Cliente). Currículo oficial basado en los 7 Resultados de Aprendizaje.">
+  <meta name="keywords" content="JavaScript, Formación Profesional, FP DAW, Desarrollo Web Cliente, RA2, Sintaxis JS, Bucles, Condicionales, Variables, Let, Const">
+  <meta name="author" content="Docente Experto en JavaScript - FP DAW">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Aprende JavaScript · Módulo 0612 Entorno Cliente (FP DAW)</title>
+
+  <!-- Google Fonts: Outfit (UI & Títulos) y JetBrains Mono (Código) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos del Sistema de Diseño Atómico -->
+  <link rel="stylesheet" href="css/variables.css?v=square1">
+  <link rel="stylesheet" href="css/reset.css?v=square1">
+  <link rel="stylesheet" href="css/animations.css?v=square1">
+  <link rel="stylesheet" href="css/layout.css?v=square1">
+  <link rel="stylesheet" href="css/components.css?v=square1">
+
+  <!-- CodeMirror 5 Editor (Resaltado de sintaxis profesional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+</head>
+<body>
+  <div class="app-container" id="app-root">
+    
+    <!-- Barra Lateral de Navegación Curricular (7 RAs) -->
+    <aside class="app-sidebar" id="app-sidebar" aria-label="Navegación curricular de los 7 Resultados de Aprendizaje">
+      <!-- Generado dinámicamente por NavigationComponent -->
+    </aside>
+
+    <!-- Fondo oscurecido para navegación móvil -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- Cabecera Superior Fija -->
+    <header class="app-header" id="app-header">
+      <div class="header-title-wrap">
+        <button class="btn-mobile-nav" id="btn-mobile-nav" aria-label="Abrir menú curricular">
+          ☰
+        </button>
+        <span class="header-badge-course hide-mobile">DAW 2º Curso · Módulo 0612</span>
+        <div class="header-title">
+          <span>Desarrollo Web en Entorno Cliente</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-code-action" id="btn-reset-progress" title="Reiniciar datos de evaluación guardados">
+          🔄 Reiniciar Progreso
+        </button>
+      </div>
+    </header>
+
+    <!-- Contenido Principal Dinámico -->
+    <main class="app-main" id="main-content" role="main">
+      <div class="content-container">
+        
+        <!-- Cabecera Hero y Tabs de Navegación -->
+        <section id="view-header-container" aria-label="Información del Resultado de Aprendizaje y pestañas">
+          <!-- Renderizado por ProgressHeaderComponent -->
+        </section>
+
+        <!-- Zona de Vistas (Teoría / Quizzes / Retos / Roadmap) -->
+        <section id="view-content-container" aria-label="Contenido didáctico interactivo">
+          <!-- Renderizado dinámicamente por la vista activa -->
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- CodeMirror 5 Core & Addons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+
+  <!-- Script Modular Principal -->
+  <script type="module" src="js/app.js?v=square2"></script>
+</body>
+</html>

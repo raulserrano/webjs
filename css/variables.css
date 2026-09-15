@@ -1,0 +1,90 @@
+/* ==========================================================================
+   DESIGN TOKENS - JAVASCRIPT FP MASTER
+   Sistema de diseño atómico con variables semánticas
+   ========================================================================== */
+
+:root {
+  /* Paleta Base: Fondo Blanco y Superficies Cálidas */
+  --bg-app: #ffffff;
+  --bg-surface-1: #fcfbfa;           /* Alabastro cálido para sidebar y cabeceras */
+  --bg-surface-2: #f5f1eb;           /* Tono arena/marfil para botones e inputs */
+  --bg-surface-3: #ede6dc;           /* Muted warm beige para hovers y badges */
+  --bg-surface-card: #ffffff;        /* Tarjetas en blanco nítido */
+  --bg-glass: rgba(255, 255, 255, 0.94); /* Cabecera translúcida con desenfoque */
+  --bg-code-editor: #1c1714;         /* Tono café expreso oscuro para el editor y terminal */
+
+  /* Colores de Acento y Marca (Tonos Marrones, Ámbar y Bronce) */
+  --color-brand: #78350f;            /* Marrón ámbar intenso / cuero artesanal */
+  --color-brand-hover: #592407;      /* Marrón café tostado profundo */
+  --color-brand-glow: rgba(120, 53, 15, 0.2);
+  --color-cyan: #9a3412;             /* Marrón terracota / siena tostada */
+  --color-cyan-glow: rgba(154, 52, 18, 0.2);
+  --color-accent: #a16207;           /* Bronce dorado cálido */
+
+  /* Colores Semánticos / Feedback (Armonizados con paleta tierra) */
+  --color-success: #15803d;          /* Verde bosque */
+  --color-success-bg: rgba(21, 128, 61, 0.08);
+  --color-success-border: rgba(21, 128, 61, 0.25);
+
+  --color-warning: #b45309;          /* Ámbar tostado */
+  --color-warning-bg: rgba(180, 83, 9, 0.08);
+  --color-warning-border: rgba(180, 83, 9, 0.25);
+
+  --color-danger: #991b1b;           /* Rojo óxido profundo */
+  --color-danger-bg: rgba(153, 27, 27, 0.08);
+  --color-danger-border: rgba(153, 27, 27, 0.25);
+
+  --color-info: #78350f;             /* Marrón tierra info */
+  --color-info-bg: rgba(120, 53, 15, 0.08);
+  --color-info-border: rgba(120, 53, 15, 0.25);
+
+  /* Jerarquía Tipográfica (Negros cálidos y tonos café) */
+  --text-primary: #1c1917;           /* Negro piedra / expreso oscuro (máxima legibilidad) */
+  --text-secondary: #574c43;         /* Marrón moca suave para párrafos y descripciones */
+  --text-muted: #8c7e73;             /* Tono arena / sepia para metadatos */
+  --text-inverse: #ffffff;           /* Blanco para botones con fondo sólido */
+  --text-highlight: #78350f;         /* Marrón acento para enlaces y destacados */
+
+  /* Tipografías */
+  --font-sans: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-code: 'JetBrains Mono', 'Fira Code', Consolas, "Courier New", monospace;
+
+  /* Escala de Espaciado */
+  --space-2xs: 0.25rem;  /* 4px */
+  --space-xs: 0.5rem;    /* 8px */
+  --space-sm: 0.75rem;   /* 12px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+
+  /* Bordes y Esquinas (Geometría Cuadrada) */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-full: 0px;
+
+  /* Bordes Semánticos */
+  --border-subtle: 1px solid rgba(87, 76, 67, 0.14);
+  --border-medium: 1px solid rgba(87, 76, 67, 0.26);
+  --border-focus: 1px solid var(--color-brand);
+
+  /* Sombras Cálidas y Suaves */
+  --shadow-sm: 0 1px 3px rgba(44, 31, 22, 0.05);
+  --shadow-md: 0 4px 14px rgba(44, 31, 22, 0.07);
+  --shadow-lg: 0 12px 30px rgba(44, 31, 22, 0.1);
+  --shadow-glow: 0 0 20px var(--color-brand-glow);
+  --shadow-cyan: 0 0 20px var(--color-cyan-glow);
+
+  /* Transiciones */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout */
+  --sidebar-width: 320px;
+  --header-height: 72px;
+  --max-content-width: 1200px;
+}

@@ -1,0 +1,7 @@
+## iniciar el servidor de pruebas local
+cd C:\Users\raula\OneDrive\Documentos\JAVASCRIPT\APLICACIONES\webjs
+npx --yes serve -l 3001
+
+## cerrar el servidor
+
+ctrl + c
