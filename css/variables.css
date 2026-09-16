@@ -1,49 +1,50 @@
 /* ==========================================================================
    DESIGN TOKENS - JAVASCRIPT FP MASTER
-   Sistema de diseño atómico con variables semánticas
+   Sistema de diseño atómico con variables semánticas corporativas (#364F59)
    ========================================================================== */
 
 :root {
-  /* Paleta Base: Fondo Blanco y Superficies Cálidas */
+  /* Paleta Base: Superficies Corporativas Slate / Petróleo */
   --bg-app: #ffffff;
-  --bg-surface-1: #fcfbfa;           /* Alabastro cálido para sidebar y cabeceras */
-  --bg-surface-2: #f5f1eb;           /* Tono arena/marfil para botones e inputs */
-  --bg-surface-3: #ede6dc;           /* Muted warm beige para hovers y badges */
-  --bg-surface-card: #ffffff;        /* Tarjetas en blanco nítido */
+  --bg-surface-1: #f4f7f8;           /* Superficie clara con matiz pizarra para sidebar y cabeceras */
+  --bg-surface-2: #e9eff2;           /* Tono pizarra hielo para botones secundarios e inputs */
+  --bg-surface-3: #dce5e9;           /* Pizarra suave para hovers, bordes sutiles y chips */
+  --bg-surface-card: #ffffff;        /* Tarjetas en blanco puro nítido */
   --bg-glass: rgba(255, 255, 255, 0.94); /* Cabecera translúcida con desenfoque */
-  --bg-code-editor: #1c1714;         /* Tono café expreso oscuro para el editor y terminal */
+  --bg-code-editor: #111a1e;         /* Tono pizarra petróleo oscuro para editor y terminal */
 
-  /* Colores de Acento y Marca (Tonos Marrones, Ámbar y Bronce) */
-  --color-brand: #78350f;            /* Marrón ámbar intenso / cuero artesanal */
-  --color-brand-hover: #592407;      /* Marrón café tostado profundo */
-  --color-brand-glow: rgba(120, 53, 15, 0.2);
-  --color-cyan: #9a3412;             /* Marrón terracota / siena tostada */
-  --color-cyan-glow: rgba(154, 52, 18, 0.2);
-  --color-accent: #a16207;           /* Bronce dorado cálido */
+  /* Colores de Marca y Acento Corporativo (#364F59) */
+  --color-brand: #364F59;            /* Color Corporativo Base (Azul pizarra / Petróleo elegante) */
+  --color-brand-hover: #263942;      /* Tono más oscuro (~20% luminosidad) para hover y active */
+  --color-brand-active: #1a282f;     /* Tono profundo (~15% luminosidad) para estados pulsados */
+  --color-brand-glow: rgba(54, 79, 89, 0.22);
+  --color-cyan: #4e7382;             /* Tono más claro (~41% luminosidad) para gradientes y tags */
+  --color-cyan-glow: rgba(78, 115, 130, 0.22);
+  --color-accent: #648b9b;           /* Tono luminoso (~50% luminosidad) para acentos sutiles */
 
-  /* Colores Semánticos / Feedback (Armonizados con paleta tierra) */
-  --color-success: #15803d;          /* Verde bosque */
-  --color-success-bg: rgba(21, 128, 61, 0.08);
-  --color-success-border: rgba(21, 128, 61, 0.25);
+  /* Colores Semánticos / Feedback (Armonizados con la paleta pizarra) */
+  --color-success: #15805d;          /* Verde esmeralda jade */
+  --color-success-bg: rgba(21, 128, 93, 0.08);
+  --color-success-border: rgba(21, 128, 93, 0.25);
 
-  --color-warning: #b45309;          /* Ámbar tostado */
-  --color-warning-bg: rgba(180, 83, 9, 0.08);
-  --color-warning-border: rgba(180, 83, 9, 0.25);
+  --color-warning: #b86a12;          /* Ámbar cálido */
+  --color-warning-bg: rgba(184, 106, 18, 0.08);
+  --color-warning-border: rgba(184, 106, 18, 0.25);
 
-  --color-danger: #991b1b;           /* Rojo óxido profundo */
-  --color-danger-bg: rgba(153, 27, 27, 0.08);
-  --color-danger-border: rgba(153, 27, 27, 0.25);
+  --color-danger: #b91c1c;           /* Carmesí vibrante */
+  --color-danger-bg: rgba(185, 28, 28, 0.08);
+  --color-danger-border: rgba(185, 28, 28, 0.25);
 
-  --color-info: #78350f;             /* Marrón tierra info */
-  --color-info-bg: rgba(120, 53, 15, 0.08);
-  --color-info-border: rgba(120, 53, 15, 0.25);
+  --color-info: #364F59;             /* Info alineado con la identidad corporativa */
+  --color-info-bg: rgba(54, 79, 89, 0.08);
+  --color-info-border: rgba(54, 79, 89, 0.25);
 
-  /* Jerarquía Tipográfica (Negros cálidos y tonos café) */
-  --text-primary: #1c1917;           /* Negro piedra / expreso oscuro (máxima legibilidad) */
-  --text-secondary: #574c43;         /* Marrón moca suave para párrafos y descripciones */
-  --text-muted: #8c7e73;             /* Tono arena / sepia para metadatos */
-  --text-inverse: #ffffff;           /* Blanco para botones con fondo sólido */
-  --text-highlight: #78350f;         /* Marrón acento para enlaces y destacados */
+  /* Jerarquía Tipográfica (Tonos carbón pizarra) */
+  --text-primary: #152228;           /* Carbón pizarra profundo (máxima legibilidad y contraste) */
+  --text-secondary: #40545e;         /* Pizarra medio para párrafos y descripciones */
+  --text-muted: #6b828e;             /* Acero pizarra suave para metadatos y fechas */
+  --text-inverse: #ffffff;           /* Blanco puro para botones y badges con fondo sólido */
+  --text-highlight: #364F59;         /* Color corporativo para enlaces y textos destacados */
 
   /* Tipografías */
   --font-sans: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -66,15 +67,15 @@
   --radius-xl: 0px;
   --radius-full: 0px;
 
-  /* Bordes Semánticos */
-  --border-subtle: 1px solid rgba(87, 76, 67, 0.14);
-  --border-medium: 1px solid rgba(87, 76, 67, 0.26);
+  /* Bordes Semánticos con matiz corporativo */
+  --border-subtle: 1px solid rgba(54, 79, 89, 0.12);
+  --border-medium: 1px solid rgba(54, 79, 89, 0.22);
   --border-focus: 1px solid var(--color-brand);
 
-  /* Sombras Cálidas y Suaves */
-  --shadow-sm: 0 1px 3px rgba(44, 31, 22, 0.05);
-  --shadow-md: 0 4px 14px rgba(44, 31, 22, 0.07);
-  --shadow-lg: 0 12px 30px rgba(44, 31, 22, 0.1);
+  /* Sombras Suaves con matiz pizarra */
+  --shadow-sm: 0 1px 3px rgba(18, 27, 31, 0.05);
+  --shadow-md: 0 4px 14px rgba(18, 27, 31, 0.08);
+  --shadow-lg: 0 12px 30px rgba(18, 27, 31, 0.12);
   --shadow-glow: 0 0 20px var(--color-brand-glow);
   --shadow-cyan: 0 0 20px var(--color-cyan-glow);
 

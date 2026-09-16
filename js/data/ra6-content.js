@@ -33,7 +33,7 @@ export const RA6_CONTENT = {
               │    └── <span style="color: #15803d;">HTMLElement</span> (Elementos con atributos HTML específicos como id, title, style)<br>
               ├── <span style="color: #b45309;">CharacterData</span><br>
               │    ├── <span style="color: #b45309;">Text</span> (El contenido textual dentro de una etiqueta)<br>
-              │    └── <span style="color: #8c7e73;">Comment</span> (Comentarios en el código <code>&lt;!-- ... --&gt;</code>)<br>
+              │    └── <span style="color: var(--text-muted);">Comment</span> (Comentarios en el código <code>&lt;!-- ... --&gt;</code>)<br>
               └── <span style="color: #7c3aed;">DocumentFragment</span> (Contenedor ligero en memoria sin padre en el DOM activo)
         </div>
 
@@ -510,7 +510,7 @@ if (tarjeta.dataset.status === "detenido") {
         <h4>C. Manipulación de Variables CSS (CSS Custom Properties)</h4>
         <p>JavaScript puede leer y modificar las variables CSS semánticas en tiempo real para crear temas dinámicos:</p>
         <ul>
-          <li>Escribir: <code>document.documentElement.style.setProperty('--color-brand', '#78350f')</code>.</li>
+          <li>Escribir: <code>document.documentElement.style.setProperty('--color-brand', '#364F59')</code>.</li>
           <li>Leer: <code>getComputedStyle(document.documentElement).getPropertyValue('--color-brand').trim()</code>.</li>
         </ul>
       `,
