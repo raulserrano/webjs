@@ -1,7 +1,11 @@
 /**
  * CONTENIDO DIDÁCTICO INTEGRAL: RESULTADO DE APRENDIZAJE 1 (RA1)
  * Módulo: Desarrollo Web en Entorno Cliente (0612) - FP DAW (Ciclo Superior)
- * Criterios de evaluación oficiales a) hasta f) según BOE (RD 686/2010) y BORM
+ * Criterios de evaluación oficiales a) hasta f) según currículo oficial.
+ * 
+ * Enfoque didáctico: Claro, accesible, ameno y adaptado a las necesidades de aprendizaje
+ * de los estudiantes de FP, evitando jerga innecesaria de bajo nivel y centrándose
+ * en conceptos clave, buenas prácticas y preparación de exámenes.
  */
 
 export const RA1_CONTENT = {
@@ -11,102 +15,102 @@ export const RA1_CONTENT = {
   officialCode: 'RA1 - Criterios a-f',
 
   // =========================================================================
-  // LISTA DE SUBTEMAS TEÓRICOS (APARTADOS 1 AL 7)
+  // LISTA DE SUBTEMAS DIDÁCTICOS (APARTADOS 1 AL 7)
   // =========================================================================
   topics: [
     {
       id: 'modelos-cliente-servidor',
       title: '1. Modelos de Ejecución Cliente/Servidor y Arquitecturas Web',
       criteriaRef: 'Criterio a)',
-      description: 'Fundamentos de la arquitectura cliente/servidor, distribución del procesamiento, latencia, consumo de recursos y evolución desde el renderizado clásico en servidor (SSR) hasta las SPAs e hidratación moderna.',
+      description: 'Cómo se comunican el navegador y el servidor, el reparto de responsabilidades entre ambos y la evolución desde las páginas tradicionales hasta las aplicaciones modernas (SPAs).',
       theoryHtml: `
-        <p>Toda aplicación web actual descansa sobre el <strong>modelo de arquitectura cliente/servidor</strong>. En este paradigma, dos entidades con roles bien diferenciados se comunican mediante peticiones (<em>Requests</em>) y respuestas (<em>Responses</em>) a través de los protocolos de la capa de aplicación <strong>HTTP / HTTPS</strong> sobre una pila TCP/IP.</p>
+        <p>Cualquier aplicación web actual funciona mediante el <strong>modelo cliente/servidor</strong>. En este esquema, dos partes con funciones muy claras se comunican a través de internet usando peticiones y respuestas mediante el protocolo seguro <strong>HTTPS</strong>:</p>
 
         <div class="code-runner-widget" style="margin: 16px 0; background: var(--bg-surface-2); border: var(--border-subtle); padding: 16px; border-radius: var(--radius-lg);">
           <div style="font-family: var(--font-code); font-size: 0.85rem; line-height: 1.6; color: var(--text-primary);">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px; margin-bottom: 10px;">
               <span style="font-weight: 700; color: var(--color-brand);">[ CLIENTE: Navegador Web ]</span>
-              <span style="color: var(--color-cyan); font-size: 0.75rem;">Internet (HTTP/2, HTTP/3)</span>
-              <span style="font-weight: 700; color: var(--color-brand);">[ SERVIDOR: Node, Nginx, API ]</span>
+              <span style="color: var(--color-cyan); font-size: 0.75rem;">Internet (HTTP/HTTPS)</span>
+              <span style="font-weight: 700; color: var(--color-brand);">[ SERVIDOR: Backend y Base de Datos ]</span>
             </div>
-            <div>1. Usuario solicita URL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;─── (HTTP GET Request) ───► &nbsp;Resuelve DNS, enruta y procesa</div>
-            <div>2. Recibe HTML, CSS, JS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;◄─── (HTTP Response 200) ─── &nbsp;Envía activos estáticos</div>
-            <div>3. Ejecuta JS local (V8 Engine) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Libera carga de CPU en el host</div>
-            <div>4. Pide datos puros asíncronos &nbsp;&nbsp;&nbsp;─── (Fetch API / JSON) ───► &nbsp;Consulta Base de Datos (SQL/NoSQL)</div>
-            <div>5. Actualiza el DOM sin recargar &nbsp;&nbsp;&nbsp;◄── (Respuesta JSON) ────── &nbsp;Retorna únicamente los datos</div>
+            <div>1. Usuario escribe una dirección web &nbsp;&nbsp;─── (Petición HTTP) ──────► &nbsp;Recibe la solicitud y busca los archivos</div>
+            <div>2. Recibe los archivos iniciales &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;◄── (Respuesta con HTML/CSS/JS) &nbsp;Envía la página básica</div>
+            <div>3. El navegador procesa y dibuja &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Usa la CPU y memoria del usuario</div>
+            <div>4. Pide solo datos nuevos (asíncrono) &nbsp;─── (Petición Fetch / JSON) ──► &nbsp;Consulta la base de datos de forma segura</div>
+            <div>5. Actualiza la pantalla al instante &nbsp;&nbsp;&nbsp;&nbsp;◄── (Responde con datos puros) &nbsp;Envía solo los datos necesarios</div>
           </div>
         </div>
 
-        <h4>A. Distribución del Procesamiento: Cliente vs Servidor</h4>
-        <p>Una decisión técnica crucial para el desarrollador web es determinar <em>dónde</em> debe ejecutarse cada fase del procesamiento de la aplicación:</p>
+        <h4>A. Reparto de Tareas: ¿Qué hace el Servidor y qué hace el Cliente?</h4>
+        <p>Una de las primeras decisiones al crear una aplicación web es decidir dónde se ejecuta cada parte del trabajo:</p>
         <ul>
-          <li><strong>Procesamiento en Servidor (Backend)</strong>:
+          <li><strong>El Servidor (Backend)</strong>:
             <ul>
-              <li><em>Responsabilidades</em>: Autenticación de credenciales, autorización, acceso directo a bases de datos, almacenamiento de secretos comerciales, orquestación de pagos y validación definitiva de integridad y seguridad de datos.</li>
-              <li><em>Ventajas</em>: Entorno 100% controlado (hardware, SO y versión del runtime conocidos), seguridad garantizada de la lógica de negocio privada y óptima indexación inicial en motores de búsqueda (SEO).</li>
-              <li><em>Inconvenientes</em>: Cada interacción puede requerir un viaje de ida y vuelta por la red (Round-Trip Time - RTT), elevando el consumo de CPU y memoria del servidor cuando concurren miles de usuarios simultáneos.</li>
+              <li><em>Su trabajo principal</em>: Es la "caja fuerte" del sistema. Se encarga de guardar y consultar la base de datos, comprobar usuarios y contraseñas, procesar pagos y garantizar que nadie modifique datos sin permiso.</li>
+              <li><em>Ventajas</em>: Es un entorno 100% seguro y controlado por nosotros. Nadie desde fuera puede ver ni alterar el código que se ejecuta en el servidor.</li>
+              <li><em>Inconvenientes</em>: Cada vez que el servidor tiene que responder a algo, hay un pequeño tiempo de espera a través de la red (latencia). Si millones de usuarios hacen peticiones a la vez, el servidor puede saturarse.</li>
             </ul>
           </li>
-          <li><strong>Procesamiento en Cliente (Frontend - Navegador)</strong>:
+          <li><strong>El Cliente (Frontend - El Navegador)</strong>:
             <ul>
-              <li><em>Responsabilidades</em>: Renderizado visual, interactividad en tiempo real, validación inmediata de formularios para mejorar la experiencia de usuario (UX), transformaciones de presentación y gestión del estado en pantalla.</li>
-              <li><em>Ventajas</em>: Aprovecha la CPU y memoria RAM del dispositivo del usuario (descentralización de la carga computacional), respuestas instantáneas a eventos de ratón/teclado y reducción radical del consumo de ancho de banda al transferir solo datos crudos (JSON) en vez de documentos HTML completos.</li>
-              <li><em>Inconvenientes</em>: Entorno heterogéneo y no confiable (el usuario o un atacante puede modificar el código, alterar variables o inspeccionar las peticiones), diversidad de navegadores y dispositivos, y necesidad de descargar código antes de la primera interacción.</li>
+              <li><em>Su trabajo principal</em>: Es la "cara visible". Muestra la interfaz gráfica, responde a los clics del usuario, anima elementos y comprueba de forma inmediata si un formulario tiene datos válidos (por ejemplo, si un email tiene una arroba).</li>
+              <li><em>Ventajas</em>: Aprovecha el procesador y la memoria del ordenador o móvil del propio usuario. Ofrece una respuesta instantánea sin parpadeos ni esperas de red.</li>
+              <li><em>Inconvenientes</em>: Es un entorno que no podemos controlar ni considerar seguro. Cualquier persona puede abrir las herramientas del navegador, ver el código JavaScript o manipular peticiones. Por eso, <strong>la seguridad real siempre debe verificarse en el servidor</strong>.</li>
             </ul>
           </li>
         </ul>
 
-        <h4>B. Evolución de las Arquitecturas de Aplicaciones Web</h4>
-        <p>A lo largo de la historia de la web profesional se han consolidado diferentes patrones arquitectónicos:</p>
+        <h4>B. Evolución de las Aplicaciones Web</h4>
+        <p>A lo largo de los años, la forma de navegar y estructurar las páginas web ha ido mejorando notablemente:</p>
         <ol>
-          <li><strong>Web 1.0 y SSR Clásico (Server-Side Rendering con Multi-Page Applications - MPA)</strong>:
-            <p>Modelos clásicos basados en PHP, JSP o ASP.NET. Ante cada clic o envío de formulario, el servidor genera un documento HTML completo desde cero. El navegador destruye la página en pantalla y descarga la nueva. <em>Problema:</em> Pantallazos en blanco, sobrecarga de red y pérdida del estado de la interfaz.</p>
+          <li><strong>Web Tradicional (Páginas clásicas)</strong>:
+            <p>Cada vez que hacías clic en un enlace o enviabas un formulario, el navegador pedía una página completa nueva al servidor. La pantalla se quedaba en blanco un instante y se volvía a cargar todo desde cero. Esto resultaba más lento e incómodo para el usuario.</p>
           </li>
-          <li><strong>SPAs (Single-Page Applications)</strong>:
-            <p>Popularizadas con la llegada de AJAX y frameworks como React, Angular o Vue. El servidor entrega un único documento HTML base mínimo ("cascarón") y un bundle de JavaScript. A partir de ese momento, la navegación es interceptada por el cliente: JavaScript manipula dinámicamente el DOM e intercambia datos asíncronos en formato JSON. <em>Ventaja:</em> Fluidez similar a una app de escritorio. <em>Desafío:</em> Carga inicial más pesada y retos de indexación SEO.</p>
+          <li><strong>SPAs (Single-Page Applications / Aplicaciones de una sola página)</strong>:
+            <p>Es el modelo utilizado por aplicaciones populares como Gmail, Spotify o Twitter. El navegador descarga una sola página básica al inicio y, a partir de ese momento, JavaScript se encarga de cambiar lo que ves en pantalla pidiendo solo los datos necesarios (en formato JSON). <em>Ventaja:</em> La navegación es instantánea y fluida, como si fuera una app instalada en el ordenador.</p>
           </li>
-          <li><strong>Arquitecturas Híbridas Modernas (SSR con Hidratación, SSG e ISR)</strong>:
-            <p>Ecosistemas contemporáneos (Next.js, Remix, Astro, Nuxt). El servidor pre-renderiza el primer impacto en HTML para máxima velocidad y SEO perfecto (Core Web Vitals), y a continuación el navegador "hidrata" el marcado adjuntando los manejadores de eventos JavaScript para activar la reactividad completa del cliente.</p>
+          <li><strong>Webs Modernas Híbridas</strong>:
+            <p>Frameworks actuales (como Next.js o Astro) combinan lo mejor de ambos mundos: envían la primera página ya preparada desde el servidor para que aparezca muy rápido y posicione bien en Google (SEO), y luego activan JavaScript para que el usuario disfrute de la máxima interactividad.</p>
           </li>
         </ol>
       `,
       callout: {
         type: 'fp-exam',
         title: 'Pregunta Clásica de Examen FP (DAW)',
-        text: 'En una arquitectura Single Page Application (SPA), ¿por qué es obligatoria la validación de un formulario tanto en el cliente con JavaScript como en el servidor con el lenguaje de backend? <strong>Respuesta docente:</strong> La validación en el cliente mejora la usabilidad proporcionando feedback instantáneo al usuario sin latencia de red, pero <em>nunca garantiza seguridad</em>, ya que un atacante puede saltarse el código del navegador modificando la petición con herramientas como cURL o Postman. La validación en el servidor es la única que protege la integridad de la base de datos.'
+        text: 'En una aplicación web, ¿por qué es obligatorio validar los datos de un formulario tanto en el cliente con JavaScript como en el servidor con el backend?<br><br><strong>Respuesta didáctica:</strong> Validar en el cliente sirve para <em>mejorar la experiencia del usuario</em>, avisándole al instante si ha olvidado un campo sin tener que esperar a internet. Pero <strong>nunca garantiza seguridad</strong>, ya que un atacante puede saltarse el navegador y enviar datos fraudulentos directamente. La validación en el servidor es la única que protege con total seguridad la base de datos.'
       },
       examples: [
         {
           id: 'ex-latencia-red',
-          title: 'Simulación de Rendimiento: Cómputo Local en Cliente vs Latencia de Red',
-          description: 'Ejecuta esta demostración que compara el tiempo de procesar y filtrar 10.000 registros directamente en la CPU del cliente frente a simular la latencia inherente de una petición HTTP al servidor.',
-          initialCode: `// 1. Simulación de cálculo en el cliente (JavaScript en navegador):
-const t0Cliente = performance.now();
+          title: 'Simulación: Rapidez del Cómputo en el Navegador vs Espera de Red',
+          description: 'Comprueba con este ejemplo cómo filtrar miles de elementos directamente en tu navegador es prácticamente instantáneo comparado con esperar una respuesta por internet.',
+          initialCode: `// 1. Procesamiento directo en el navegador (memoria RAM del equipo del usuario):
+const inicioTiempo = performance.now();
 
-// Generamos 10.000 registros en la memoria RAM del navegador
-const dataset = Array.from({ length: 10000 }, (_, i) => ({
+// Creamos una lista simulada de 10.000 alumnos en memoria:
+const alumnos = Array.from({ length: 10000 }, (_, i) => ({
   id: i + 1,
-  alumno: "Estudiante DAW " + (i + 1),
-  nota: Math.round((Math.random() * 10) * 100) / 100
+  nombre: "Estudiante DAW " + (i + 1),
+  nota: Math.round((Math.random() * 10) * 10) / 10
 }));
 
-// Filtramos alumnos aprobados localmente:
-const aprobados = dataset.filter(a => a.nota >= 5.0);
-const t1Cliente = performance.now();
-const tiempoClienteMs = (t1Cliente - t0Cliente).toFixed(2);
+// Filtramos los aprobados inmediatamente con JavaScript:
+const aprobados = alumnos.filter(a => a.nota >= 5.0);
+const finTiempo = performance.now();
+const tiempoLocalMs = (finTiempo - inicioTiempo).toFixed(2);
 
-console.log("=== PROCESAMIENTO EN CLIENTE ===");
-console.log("Total registros filtrados:", aprobados.length);
-console.log("Tiempo de cómputo local:", tiempoClienteMs + " ms");
+console.log("=== PROCESAMIENTO DIRECTO EN EL CLIENTE ===");
+console.log("Total alumnos aprobados encontrados:", aprobados.length);
+console.log("Tiempo que ha tardado tu navegador:", tiempoLocalMs + " ms");
 
-// 2. Comparación contra la latencia física de red mínima (RTT estimado a servidor):
-const latenciaRedTipicaMs = 120; // 120 ms de ida y vuelta típica en 4G/WiFi
-const factorAceleracion = (latenciaRedTipicaMs / parseFloat(tiempoClienteMs)).toFixed(1);
+// 2. Comparación con el tiempo medio que tardaría una petición por internet:
+const tiempoEsperaInternetMs = 120; // 120 ms de ida y vuelta habitual en WiFi/4G
+const vecesMasRapido = (tiempoEsperaInternetMs / Math.max(parseFloat(tiempoLocalMs), 0.1)).toFixed(0);
 
-console.log("\\n=== COMPARATIVA CON LATENCIA DE RED ===");
-console.log("Latencia estimada petición HTTP ida/vuelta:", latenciaRedTipicaMs + " ms");
-console.log("¡El cliente procesó los datos " + factorAceleracion + " veces más rápido que esperar a la red!");
-console.log("Por esto las interfaces SPA procesan interacciones en el navegador.");`
+console.log("\\n=== COMPARATIVA CON INTERNET ===");
+console.log("Tiempo estimado de una petición HTTP ida y vuelta:", tiempoEsperaInternetMs + " ms");
+console.log("¡Tu navegador filtró los datos unas " + vecesMasRapido + " veces más rápido que esperar a la red!");
+console.log("Por esta razón las aplicaciones modernas realizan filtros y búsquedas en el cliente.");`
         }
       ]
     },
@@ -115,176 +119,155 @@ console.log("Por esto las interfaces SPA procesan interacciones en el navegador.
       id: 'motores-y-anatomia-navegador',
       title: '2. Anatomía de los Navegadores y Motores de Ejecución',
       criteriaRef: 'Criterio b)',
-      description: 'Estructura interna de un navegador web, motores de renderizado vs motores JavaScript, y el pipeline interno de compilación Just-In-Time (JIT) en el motor V8.',
+      description: 'Estructura básica de un navegador web, la diferencia entre pintar la pantalla y ejecutar JavaScript, y cómo los motores modernos ejecutan el código a toda velocidad.',
       theoryHtml: `
-        <p>Un navegador web no es simplemente un visor de páginas, sino un sofisticado sistema operativo de aplicaciones cliente. Para comprender su funcionamiento, es fundamental distinguir sus capas arquitectónicas:</p>
+        <p>Un navegador web actual no es un simple programa para ver texto, sino una completa plataforma capaz de ejecutar aplicaciones avanzadas. Para entenderlo, conviene conocer sus partes esenciales:</p>
 
-        <h4>A. Arquitectura por Capas del Navegador</h4>
+        <h4>A. Las Partes Principales de un Navegador</h4>
         <ul>
-          <li><strong>Interfaz de Usuario (User Interface)</strong>: Barra de direcciones, botones atrás/adelante, marcadores y pestañas.</li>
-          <li><strong>Motor del Navegador (Browser Engine)</strong>: Coordina las acciones entre la interfaz de usuario y el motor de renderizado.</li>
-          <li><strong>Motor de Renderizado (Rendering / Layout Engine)</strong>: Responsable de analizar el código HTML y CSS para dibujar los píxeles en la pantalla.
-            <ul>
-              <li><strong>Blink</strong>: Desarrollado por Google (usado en Google Chrome, Microsoft Edge, Opera, Brave y Vivaldi). Bifurcación de WebKit.</li>
-              <li><strong>Gecko</strong>: Desarrollado por Mozilla (utilizado en Firefox).</li>
-              <li><strong>WebKit</strong>: Desarrollado por Apple (usado en Safari y en todos los navegadores bajo iOS debido a normativas de la App Store).</li>
-            </ul>
-          </li>
-          <li><strong>Motor de JavaScript (JavaScript Engine)</strong>: Interpreta y compila el código ECMAScript a instrucciones binarias de la CPU.</li>
-          <li><strong>Subsistema de Red (Networking)</strong>: Gestiona llamadas HTTP/HTTPS, WebSockets, DNS y resolución de certificados TLS/SSL.</li>
-          <li><strong>Almacenamiento Local (Data Persistence)</strong>: Almacena cookies, <code>localStorage</code>, <code>sessionStorage</code>, <code>IndexedDB</code> y la caché HTTP.</li>
+          <li><strong>Interfaz de Usuario</strong>: Lo que ves alrededor de la web: la barra de direcciones, botones de avanzar/retroceder, pestañas y marcadores.</li>
+          <li><strong>Motor de Renderizado (o de Maquetación)</strong>: Se encarga del <em>diseño visual</em>. Lee el código HTML y CSS y calcula dónde va cada caja, color y texto para dibujarlo en pantalla.</li>
+          <li><strong>Motor de JavaScript</strong>: Es el "cerebro lógico". Lee tu código JavaScript y lo transforma en instrucciones que el procesador del ordenador entiende para que todo funcione.</li>
+          <li><strong>Módulo de Red</strong>: Gestiona las conexiones a internet, descargando archivos mediante HTTP/HTTPS.</li>
+          <li><strong>Almacenamiento Local</strong>: Permite guardar datos directamente en el navegador del usuario (como cookies, <code>localStorage</code> o <code>sessionStorage</code>) para no perder información al cerrar la pestaña.</li>
         </ul>
 
-        <h4>B. Los Motores JavaScript Modernos</h4>
-        <p>Los principales motores del mercado actual son:</p>
+        <h4>B. Los Principales Motores del Mercado</h4>
+        <p>Cada navegador utiliza un motor de renderizado y un motor de JavaScript específicos:</p>
         <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem;">
           <thead>
             <tr style="background: var(--bg-surface-3); border-bottom: 2px solid var(--border-subtle); text-align: left;">
-              <th style="padding: 10px;">Motor JS</th>
-              <th style="padding: 10px;">Creador / Mantenimiento</th>
-              <th style="padding: 10px;">Navegador / Entornos Clave</th>
-              <th style="padding: 10px;">Tecnología Central</th>
+              <th style="padding: 10px;">Navegador</th>
+              <th style="padding: 10px;">Motor de Renderizado (HTML/CSS)</th>
+              <th style="padding: 10px;">Motor de JavaScript</th>
+              <th style="padding: 10px;">Creador / Uso Clave</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 10px;"><strong>Google Chrome / MS Edge</strong></td>
+              <td style="padding: 10px;">Blink</td>
               <td style="padding: 10px;"><strong>V8</strong></td>
-              <td style="padding: 10px;">Google (C++)</td>
-              <td style="padding: 10px;">Chrome, Edge, Node.js, Deno</td>
-              <td style="padding: 10px;">Ignition (Intérprete) + TurboFan (JIT Compilador)</td>
+              <td style="padding: 10px;">Google (también usado en Node.js)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 10px;"><strong>Mozilla Firefox</strong></td>
+              <td style="padding: 10px;">Gecko</td>
               <td style="padding: 10px;"><strong>SpiderMonkey</strong></td>
-              <td style="padding: 10px;">Mozilla (C++ y Rust)</td>
-              <td style="padding: 10px;">Firefox</td>
-              <td style="padding: 10px;">Primer motor de la historia (Brendan Eich), Warp/IonMonkey</td>
+              <td style="padding: 10px;">Mozilla (el primer motor de la historia)</td>
             </tr>
             <tr>
+              <td style="padding: 10px;"><strong>Apple Safari</strong></td>
+              <td style="padding: 10px;">WebKit</td>
               <td style="padding: 10px;"><strong>JavaScriptCore (Nitro)</strong></td>
-              <td style="padding: 10px;">Apple (C++)</td>
-              <td style="padding: 10px;">Safari, Bun runtime</td>
-              <td style="padding: 10px;">LLInt (Low-Level Interpreter) + DFG + FTL</td>
+              <td style="padding: 10px;">Apple (usado en iPhone, iPad y Mac)</td>
             </tr>
           </tbody>
         </table>
 
-        <h4>C. El Pipeline Interno del Motor V8: De Texto a Código Máquina</h4>
-        <p>Antiguamente, JavaScript era un lenguaje puramente interpretado línea por línea, lo que resultaba en un rendimiento deficiente. V8 revolucionó la industria implementando <strong>Compilación Just-In-Time (JIT)</strong>:</p>
+        <h4>C. ¿Cómo Ejecuta el Navegador Nuestro Código JavaScript?</h4>
+        <p>En los orígenes de la web, JavaScript era un lenguaje puramente <em>interpretado</em>: el navegador leía el código línea a línea y lo ejecutaba poco a poco, lo cual era lento.</p>
+        <p>Hoy en día, motores modernos como <strong>V8</strong> utilizan una técnica inteligente llamada <strong>Compilación en Tiempo Real (JIT - Just-In-Time)</strong>:</p>
         <ol>
-          <li><strong>Lexer / Scanner & Parser</strong>: Descompone el código fuente en tokens (palabras clave, operadores, identificadores) y construye el <strong>AST (Abstract Syntax Tree / Árbol de Sintaxis Abstracta)</strong>.</li>
-          <li><strong>Ignition (El Intérprete)</strong>: Transforma el AST en una representación compacta denominada <em>Bytecode</em>. La aplicación comienza a ejecutarse de inmediato sin esperar a compilar todo el código.</li>
-          <li><strong>Profiler (Monitor en Tiempo de Ejecución)</strong>: Analiza qué funciones se ejecutan con mucha frecuencia (denominadas <em>Hot Functions</em>) y recopila datos sobre los tipos de datos que reciben.</li>
-          <li><strong>TurboFan (El Compilador Optimizador JIT)</strong>: Toma el bytecode de las hot functions y los datos del profiler, y genera <strong>código máquina optimizado</strong> de altísimo rendimiento para la CPU del equipo.</li>
-          <li><strong>Deoptimización (Bailout)</strong>: Dado que JavaScript es dinámicamente tipado, si una función optimizada para números recibe repentinamente un string, TurboFan desecha el código máquina y regresa (<em>deopts</em>) al bytecode interpretado de Ignition.</li>
+          <li><strong>Lectura inicial rápida</strong>: El motor lee tu código y empieza a ejecutarlo inmediatamente sin hacer esperar al usuario.</li>
+          <li><strong>Vigilancia de código frecuente</strong>: Mientras el programa funciona, el motor observa qué funciones se ejecutan muchas veces (por ejemplo, funciones dentro de un bucle o cálculos matemáticos).</li>
+          <li><strong>Optimización sobre la marcha (JIT)</strong>: Esas funciones frecuentes se traducen directamente a código máquina ultrarrápido adaptado al procesador del equipo, logrando que la aplicación vaya a máxima velocidad.</li>
         </ol>
       `,
       callout: {
         type: 'pro-tip',
-        title: 'Buenas Prácticas para el Motor V8',
-        text: 'Para ayudar al compilador TurboFan a generar el código máquina más veloz posible, mantén tus funciones <strong>monomórficas</strong> (que siempre reciban objetos con la misma estructura y tipos de parámetros). Cambiar dinámicamente los tipos de un objeto o añadirle propiedades de forma caótica rompe las clases ocultas (<em>Hidden Classes</em> / <em>Shapes</em>) de V8 y fuerza constantes deoptimizaciones.'
+        title: 'Consejo Práctico para Programar Mejor en JavaScript',
+        text: 'Los motores como V8 optimizan mejor el código cuando es <strong>predecible</strong>. Por ejemplo, si creas una función que suma números, evita pasarle a veces textos o estructuras extrañas. Cuando los tipos de datos son consistentes, el motor del navegador mantiene el código optimizado a la máxima velocidad posible.'
       },
       examples: [
         {
           id: 'ex-navigator-inspection',
-          title: 'Auditoría del Entorno de Ejecución con la API Navigator',
-          description: 'Inspecciona las propiedades del motor del navegador y del hardware subyacente que expone el entorno cliente web.',
-          initialCode: `// Inspección de capacidades y metadatos del navegador cliente
-console.log("=== AUDITORÍA DEL CLIENTE WEB (NAVIGATOR API) ===");
-console.log("Navegador (User-Agent):", navigator.userAgent);
-console.log("Idioma del cliente:", navigator.language);
-console.log("Estado de conexión a Internet:", navigator.onLine ? "ONLINE (Conectado)" : "OFFLINE (Sin Red)");
-console.log("Cookies habilitadas:", navigator.cookieEnabled);
-console.log("Hilos lógicos de CPU detectados:", navigator.hardwareConcurrency || "No expuesto");
+          title: 'Inspección de las Capacidades del Navegador (API Navigator)',
+          description: 'Averigua qué datos y capacidades expone tu propio navegador usando la API estándar de JavaScript.',
+          initialCode: `// Consultamos información del entorno cliente mediante el objeto navigator
+console.log("=== DATOS DE ESTE NAVEGADOR (NAVIGATOR API) ===");
+console.log("Navegador detectado:", navigator.userAgent);
+console.log("Idioma preferido del usuario:", navigator.language);
+console.log("¿Está conectado a Internet?:", navigator.onLine ? "SÍ (Online)" : "NO (Sin conexión)");
+console.log("¿Tiene cookies activadas?:", navigator.cookieEnabled ? "SÍ" : "NO");
 
-if (navigator.deviceMemory) {
-  console.log("Memoria RAM aproximada del dispositivo:", navigator.deviceMemory + " GB");
+// Capacidad del equipo (hilos lógicos del procesador):
+if (navigator.hardwareConcurrency) {
+  console.log("Núcleos de procesador disponibles para tareas:", navigator.hardwareConcurrency);
 }
 
-if (navigator.connection) {
-  console.log("Tipo de red efectiva:", navigator.connection.effectiveType);
-  console.log("Velocidad de enlace estimada:", navigator.connection.downlink + " Mbps");
-}
-
-console.log("\\nAPI de Alto Rendimiento (performance):");
-console.log("Milisegundos desde la carga de la página:", performance.now().toFixed(2) + " ms");`
+// Comprobación de velocidad de carga:
+console.log("\\nTiempo transcurrido desde que se abrió la página:");
+console.log(performance.now().toFixed(2) + " milisegundos");`
         }
       ]
     },
 
     {
       id: 'event-loop-concurrencia',
-      title: '3. El Modelo de Concurrencia: Single-Thread, Event Loop y Render Pipeline',
+      title: '3. ¿Cómo Gestiona JavaScript Varias Tareas a la Vez? Asincronía y el Event Loop',
       criteriaRef: 'Criterio b)',
-      description: 'El modelo de ejecución monohilo de JavaScript, la pila de llamadas (Call Stack), Heap de memoria, colas de microtareas vs macrotareas y el pipeline de renderizado gráfico del navegador.',
+      description: 'Por qué JavaScript hace una sola cosa a la vez, cómo el navegador le ayuda a no congelar la pantalla y cómo funciona el Event Loop de forma sencilla.',
       theoryHtml: `
-        <p>Una de las preguntas teóricas más recurrentes en el desarrollo web es: <em>¿Cómo puede JavaScript gestionar múltiples peticiones asíncronas, temporizadores y eventos de usuario si es un lenguaje de un solo hilo (Single-Threaded)?</em></p>
-        <p>La clave reside en comprender que <strong>JavaScript es monohilo, pero el navegador web es multihilo</strong>.</p>
+        <p>Una de las curiosidades más importantes de JavaScript es que es un lenguaje <strong>monohilo (Single-Thread)</strong>. Esto significa que cuenta con <strong>un único hilo principal de ejecución</strong>: solo puede realizar <em>una sola acción a la vez</em>.</p>
+        <p>Si solo puede hacer una cosa a la vez, ¿por qué una página no se congela cuando descarga una foto grande o pide datos a un servidor? La clave está en la <strong>Asincronía</strong> y en el <strong>Event Loop (Bucle de Eventos)</strong>.</p>
 
-        <h4>A. Las Piezas del Entorno de Ejecución (Runtime)</h4>
+        <h4>A. La Analogía del Cocinero</h4>
+        <p>Imagina que JavaScript es un <strong>cocinero con una única sartén</strong> (la Pila de Ejecución o <em>Call Stack</em>):</p>
         <ul>
-          <li><strong>Call Stack (Pila de Llamadas)</strong>: Estructura de datos LIFO (<em>Last In, First Out</em>). Aquí se apilan los marcos de las funciones a medida que se invocan y se desapilan cuando retornan. Al ser monohilo, solo existe <strong>un único Call Stack</strong>: si una función ejecuta un bucle infinito síncrono, la interfaz completa del navegador se congela.</li>
-          <li><strong>Memory Heap (Montículo de Memoria)</strong>: Región no estructurada de memoria donde se asignan las variables, objetos, matrices y funciones instanciadas. El <em>Garbage Collector</em> (Recolector de Basura) libera automáticamente la memoria de objetos inalcanzables.</li>
-          <li><strong>Web APIs</strong>: Hilos en segundo plano provistos por el navegador (no forman parte del motor JS en sí). Gestionan peticiones <code>fetch()</code>, temporizadores <code>setTimeout()</code>, escuchadores de eventos y acceso a almacenamiento.</li>
-          <li><strong>Microtask Queue (Cola de Microtareas - Prioridad Máxima)</strong>: Contiene callbacks de <strong>Promesas</strong> (<code>.then()</code>, <code>.catch()</code>, <code>.finally()</code>), <code>queueMicrotask()</code> y <code>MutationObserver</code>.</li>
-          <li><strong>Task Queue / Callback Queue (Cola de Macrotareas)</strong>: Contiene callbacks de eventos de temporizadores (<code>setTimeout</code>, <code>setInterval</code>), eventos de usuario (click, submit) y respuestas de red I/O.</li>
+          <li>Si el cocinero pone agua a hervir y se queda parado mirando la olla durante 10 minutos sin hacer nada más (ejecución bloqueante), nadie atiende a los clientes y el restaurante se para por completo.</li>
+          <li>En la web ocurriría lo mismo: si JavaScript se quedara congelado esperando una respuesta de internet, el usuario no podría pulsar botones ni hacer scroll.</li>
         </ul>
 
-        <h4>B. La Regla de Oro del Event Loop (Bucle de Eventos)</h4>
-        <p>El Event Loop es un proceso en bucle constante que evalúa el siguiente algoritmo:</p>
+        <h4>B. La Solución: El Navegador le Echa una Mano</h4>
+        <p>Para evitar bloqueos, JavaScript le pide ayuda al navegador para todas las tareas que requieren esperar:</p>
+        <ul>
+          <li><strong>Peticiones de red (<code>fetch</code>)</strong>: El navegador se encarga de esperar los datos de internet en segundo plano.</li>
+          <li><strong>Temporizadores (<code>setTimeout</code>)</strong>: El navegador cuenta los segundos en un reloj independiente.</li>
+          <li><strong>Eventos del usuario</strong>: El navegador vigila cuándo el usuario hace clic o escribe en el teclado.</li>
+        </ul>
+        <p>Mientras el navegador espera esas respuestas en segundo plano, el hilo principal de JavaScript queda libre para seguir respondiendo al usuario de inmediato.</p>
+
+        <h4>C. ¿Qué es el Event Loop (Bucle de Eventos)?</h4>
+        <p>El <strong>Event Loop</strong> actúa como un <strong>coordinador de tareas</strong> que vigila continuamente dos cosas sencillas:</p>
         <ol>
-          <li>¿Hay funciones ejecutándose en el <strong>Call Stack</strong>? Si es así, espera a que la pila se vacíe por completo.</li>
-          <li>Una vez vacío el Call Stack, vacía <strong>TODAS las Microtareas</strong> pendientes en la <em>Microtask Queue</em>, una tras otra. Si una microtarea encola otra microtarea, se ejecuta en ese mismo ciclo.</li>
-          <li>El navegador evalúa si corresponde ejecutar el <strong>Pipeline de Renderizado Gráfico</strong> (actualizar la pantalla a 60Hz / 120Hz).</li>
-          <li>Extrae y ejecuta <strong>UNA sola Macrotarea</strong> de la <em>Task Queue</em>.</li>
-          <li>Vuelve al paso 1.</li>
+          <li>¿Está ocupado JavaScript en este momento? Si está ejecutando código, el Event Loop espera a que termine.</li>
+          <li>En cuanto JavaScript termina lo que estaba haciendo y queda libre, el Event Loop revisa la <strong>cola de espera</strong> y le entrega la siguiente tarea pendiente (por ejemplo: <em>"¡Oye, ya han llegado los datos de internet!"</em> o <em>"¡El temporizador de 3 segundos ya ha terminado!"</em>).</li>
         </ol>
 
-        <h4>C. El Pipeline de Renderizado Gráfico (Critical Rendering Path)</h4>
-        <p>Cuando el navegador recibe el HTML y CSS, o cuando JavaScript muta el DOM, se produce el ciclo de dibujo:</p>
+        <h4>D. ¿Cómo Dibuja la Pantalla el Navegador? (En 3 Pasos Sencillos)</h4>
+        <p>Para mostrar visualmente una página o actualizarla tras una acción del usuario, el navegador realiza tres pasos básicos:</p>
         <ol>
-          <li><strong>DOM (Document Object Model)</strong>: Árbol de nodos generado a partir de las etiquetas HTML.</li>
-          <li><strong>CSSOM (CSS Object Model)</strong>: Árbol de reglas de estilo computadas.</li>
-          <li><strong>Render Tree</strong>: Unión del DOM y CSSOM que contiene solo los elementos visualmente visibles (excluye <code>&lt;head&gt;</code> o nodos con <code>display: none</code>).</li>
-          <li><strong>Layout / Reflow</strong>: Cálculo de la geometría exacta: dimensiones (ancho, alto) y coordenadas espaciales (x, y) de cada caja en la pantalla.</li>
-          <li><strong>Paint</strong>: Rasterizado de colores, bordes, sombras y texto en capas de mapa de bits.</li>
-          <li><strong>Composite</strong>: La GPU combina las diferentes capas en la imagen final mostrada al usuario.</li>
+          <li><strong>Estructura y Estilos</strong>: Lee el código HTML para conocer los elementos y el CSS para saber qué colores y fuentes aplicar.</li>
+          <li><strong>Cálculo de Posiciones (Diseño)</strong>: Calcula el tamaño exacto de cada caja y en qué lugar de la pantalla debe situarse.</li>
+          <li><strong>Pintado</strong>: Dibuja los colores, textos e imágenes píxel a píxel para que los veas en pantalla.</li>
         </ol>
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Pregunta Estrella de Oposiciones y Exámenes FP',
-        text: '¿Cuál es la salida por consola exacta del siguiente código y por qué?<br><code>console.log(1); setTimeout(() => console.log(2), 0); Promise.resolve().then(() => console.log(3)); console.log(4);</code><br><strong>Salida:</strong> <code>1, 4, 3, 2</code>.<br><strong>Explicación:</strong> 1 y 4 son síncronos (van directos al Call Stack). El callback de la Promesa (3) va a la <em>Microtask Queue</em> y tiene prioridad sobre el callback del <code>setTimeout</code> (2), que va a la <em>Task Queue</em> de macrotareas.'
+        title: 'Pregunta Estrella de Exámenes FP',
+        text: '¿En qué orden saldrán estos mensajes por consola?<br><br><code>console.log("A");<br>setTimeout(() => console.log("B"), 0);<br>console.log("C");</code><br><br><strong>Salida correcta:</strong> <code>A</code>, luego <code>C</code>, y por último <code>B</code>.<br><br><strong>Explicación sencilla:</strong> <code>A</code> y <code>C</code> se ejecutan inmediatamente en el código principal. Aunque el temporizador de <code>B</code> tenga 0 segundos, pasa a la cola de espera del navegador, y el Event Loop espera obligatoriamente a que termine todo el código principal antes de ejecutarlo.'
       },
       examples: [
         {
           id: 'ex-event-loop-live',
-          title: 'Laboratorio en Vivo del Event Loop: Síncrono vs Microtareas vs Macrotareas',
-          description: 'Ejecuta y analiza paso a paso el orden en que el motor de JavaScript y el navegador resuelven las diferentes colas de concurrencia.',
-          initialCode: `// Demostración del ciclo de concurrencia en JavaScript
-console.log("▶ 1. [Síncrono] Inicio del script principal");
+          title: 'Demostración en Vivo: Tareas Inmediatas vs Tareas en Segundo Plano',
+          description: 'Ejecuta este código para comprobar con tus propios ojos cómo el código inmediato se procesa antes que las tareas programadas con temporizador.',
+          initialCode: `// Observa el orden en que se imprimen los mensajes:
+console.log("1. ▶ Código inmediato: Empieza el programa");
 
-// Macrotarea (Task Queue) con retardo de 0 ms:
+// Programamos una tarea para dentro de 0 milisegundos:
 setTimeout(() => {
-  console.log("⏰ 5. [Macrotarea - setTimeout] Ejecutada tras vaciar microtareas");
+  console.log("4. ⏰ Tarea con temporizador: Se ejecuta cuando el código principal ha terminado");
 }, 0);
 
-// Microtarea (Microtask Queue) vía Promesa nativa:
-Promise.resolve()
-  .then(() => {
-    console.log("⚡ 3. [Microtarea - Promesa 1] Se ejecuta antes que cualquier macrotarea");
-    return "Dato encadenado";
-  })
-  .then((dato) => {
-    console.log("⚡ 4. [Microtarea - Promesa 2]", dato);
-  });
-
-// Microtarea explícita mediante la Web API queueMicrotask:
-queueMicrotask(() => {
-  console.log("⚡ 3.b [Microtarea - queueMicrotask] Misma cola de alta prioridad");
+// Una Promesa que se resuelve de inmediato:
+Promise.resolve().then(() => {
+  console.log("3. ⚡ Promesa resuelta: Tiene prioridad en la lista de espera");
 });
 
-console.log("▶ 2. [Síncrono] Fin del script principal (Call Stack a punto de vaciarse)");
-console.log("Observa en la consola inferior cómo el orden de salida respeta el algoritmo del Event Loop.");`
+console.log("2. ▶ Código inmediato: Termina el programa principal");
+console.log("¡Revisa el orden en la consola inferior! El orden siempre es: Código principal -> Promesas -> Temporizadores.");`
         }
       ]
     },
@@ -293,547 +276,521 @@ console.log("Observa en la consola inferior cómo el orden de salida respeta el 
       id: 'ecosistema-lenguajes-cliente',
       title: '4. Ecosistema de Lenguajes en el Cliente: JavaScript, TypeScript y WebAssembly',
       criteriaRef: 'Criterio c)',
-      description: 'Evolución de JavaScript y el comité TC39, TypeScript como superset tipado estático, WebAssembly (Wasm) para computación binaria de alto rendimiento y herramientas de transpilación.',
+      description: 'Los tres lenguajes clave del navegador actual: JavaScript como estándar universal, TypeScript para proyectos profesionales y WebAssembly para tareas de máxima potencia.',
       theoryHtml: `
-        <p>Aunque JavaScript nació como un lenguaje de scripting modesto para validar formularios en 1995 (creado por Brendan Eich en apenas 10 días para Netscape), hoy en día es el lenguaje de programación más ubicuo del planeta, normalizado bajo el estándar <strong>ECMA-262</strong>.</p>
+        <p>Aunque en la web hoy en día podemos usar diversas herramientas, en el navegador destacan tres tecnologías fundamentales:</p>
 
-        <h4>A. Estandarización: TC39 y ECMAScript</h4>
-        <p>El <strong>TC39 (Technical Committee 39)</strong> es el organismo responsable de evolucionar la especificación oficial de JavaScript (ECMAScript). Cualquier propuesta de nueva sintaxis debe superar 5 etapas rigurosas (<em>Stages 0 a 4</em>) antes de incorporarse al estándar anual (ES2015/ES6, ES2020, ES2023, etc.):</p>
+        <h4>A. JavaScript (ECMAScript): El Estándar Universal de la Web</h4>
+        <p>JavaScript nació en 1995 (creado por Brendan Eich en apenas 10 días para Netscape) como un lenguaje sencillo para añadir pequeñas animaciones y validar formularios. Hoy en día está regulado por un estándar internacional oficial llamado <strong>ECMAScript</strong> y es el <strong>único lenguaje de programación que todos los navegadores entienden de forma nativa sin instalar nada</strong>.</p>
+        <p>Cada año se publican mejoras muy útiles, como:</p>
         <ul>
-          <li><strong>ES5 (2009)</strong>: Modo estricto (<code>"use strict"</code>), métodos funcionales de matrices (<code>map</code>, <code>filter</code>, <code>reduce</code>), soporte nativo de <code>JSON</code>.</li>
-          <li><strong>ES6 / ES2015 (El punto de inflexión)</strong>: Declaraciones <code>let</code> y <code>const</code> con ámbito de bloque, funciones flecha (<code>=&gt;</code>), Clases (<code>class</code>), Módulos nativos (<code>import/export</code>), Promesas y Desestructuración.</li>
-          <li><strong>ES2017 - ES2024</strong>: <code>async/await</code>, encadenamiento opcional (<code>?.</code>), operador de fusión nula (<code>??</code>), <code>BigInt</code>, métodos de array inmutables (<code>toSorted</code>, <code>toReversed</code>).</li>
+          <li>Declaración de variables seguras con <code>let</code> y <code>const</code>.</li>
+          <li>Funciones flecha compactas (<code>() =&gt; { ... }</code>).</li>
+          <li>Código asíncrono limpio y fácil de leer con <code>async</code> y <code>await</code>.</li>
+          <li>Métodos cómodos para listas (<code>map</code>, <code>filter</code>, <code>find</code>).</li>
         </ul>
 
-        <h4>B. TypeScript: Seguridad de Tipos para la Empresa</h4>
-        <p>A medida que las aplicaciones web en cliente crecieron a cientos de miles de líneas de código, el tipado dinámico y débil de JavaScript clásico provocaba errores frecuentes en producción (el temido <em>"TypeError: Cannot read properties of undefined"</em>). Para resolverlo, Microsoft creó <strong>TypeScript</strong>:</p>
+        <h4>B. TypeScript: JavaScript con Comprobación de Errores para Empresas</h4>
+        <p>A medida que las aplicaciones web se hicieron gigantescas, en proyectos grandes era fácil cometer pequeños fallos tontos (por ejemplo, escribir mal el nombre de una propiedad o sumar texto con números sin querer). Para resolverlo, Microsoft creó <strong>TypeScript</strong>:</p>
         <ul>
-          <li><strong>Superset de JavaScript</strong>: Todo código JavaScript válido es código TypeScript válido. Añade tipos estáticos opcionales, interfaces, genéricos, enums y modificadores de acceso (<code>public</code>, <code>private</code>, <code>readonly</code>).</li>
-          <li><strong>Chequeo en Tiempo de Compilación</strong>: Los errores de tipos se detectan en el editor (IDE) mientras escribes, <em>antes de ejecutar el programa</em>.</li>
-          <li><strong>Transpilación</strong>: Los navegadores web <strong>no pueden ejecutar TypeScript directamente</strong>. El compilador <code>tsc</code> o bundlers modernos (Babel, esbuild, SWC) eliminan los tipos y emiten JavaScript estándar que cualquier navegador entiende.</li>
+          <li><strong>¿Qué es?</strong>: Es JavaScript al que se le añade la posibilidad de indicar los tipos de datos (decir si una variable es un texto, un número, una fecha, etc.).</li>
+          <li><strong>Ventaja clave</strong>: Te avisa de los errores en el editor de código (como Visual Studio Code) <em>mientras estás escribiendo</em>, antes incluso de abrir la página web.</li>
+          <li><strong>Dato fundamental para exámenes</strong>: Los navegadores <strong>NO entienden TypeScript directamente</strong>. Antes de subir la web a producción, una herramienta (llamada compilador o transpilador) limpia los tipos y convierte el código en JavaScript estándar compatible con cualquier navegador.</li>
         </ul>
 
-        <h4>C. WebAssembly (Wasm): Velocidad Cuasi-Nativa en la Web</h4>
-        <p>Aprobado por el W3C como el cuarto lenguaje oficial de la web (junto a HTML, CSS y JS), <strong>WebAssembly</strong> es un formato de código binario de bajo nivel diseñado como objetivo de compilación para lenguajes como <strong>C++, Rust, Go o C#</strong>:</p>
+        <h4>C. WebAssembly (Wasm): Máxima Velocidad para Tareas Exigentes</h4>
+        <p>¿Qué ocurre cuando queremos ejecutar en la web algo muy pesado, como un videojuego 3D, un editor de vídeo o una herramienta de diseño gráfico profesional como Figma?</p>
         <ul>
-          <li><strong>Rendimiento Crítico</strong>: Se ejecuta a velocidades cercanas al código máquina nativo, con tiempos de inicio ultrarrápidos y consumo de memoria predecible.</li>
-          <li><strong>No sustituye a JavaScript, se complementan</strong>: JavaScript gestiona la interfaz de usuario, eventos y llamadas a APIs web, mientras que WebAssembly asume las tareas intensivas de cómputo (motores de videojuegos, edición de imagen en Canva/Photoshop Web, Figma, codecs de vídeo y criptografía).</li>
-          <li><strong>Seguridad Compartida</strong>: Wasm se ejecuta dentro del mismo entorno de aislamiento seguro (Sandbox) del navegador que JavaScript.</li>
+          <li>Para estos casos de alto rendimiento existe <strong>WebAssembly</strong>, un formato binario compacto que permite ejecutar en el navegador código escrito en lenguajes rápidos como <strong>C++, Rust o Go</strong>.</li>
+          <li><strong>No sustituye a JavaScript, se ayudan</strong>: JavaScript sigue controlando los botones, menús y la interacción de la página, mientras que WebAssembly se encarga de los cálculos pesados en segundo plano.</li>
         </ul>
       `,
       callout: {
         type: 'pro-tip',
         title: '¿Sabías que...?',
-        text: 'La herramienta de diseño profesional <strong>Figma</strong> funciona íntegramente en el navegador gracias a que su motor de renderizado vectorial 2D está escrito en C++ y compilado a <strong>WebAssembly</strong>, permitiendo manipular miles de capas a 60 FPS sin saturar el recolector de basura de JavaScript.'
+        text: 'Herramientas tan populares como <strong>Figma</strong> (diseño gráfico) o versiones web de <strong>Photoshop</strong> funcionan con tanta fluidez en el navegador porque sus motores gráficos internos están programados en C++ y convertidos a <strong>WebAssembly</strong>, trabajando codo con codo con JavaScript.'
       },
       examples: [
         {
           id: 'ex-wasm-detection',
-          title: 'Detección de Soporte WebAssembly y Comparación de Tipado',
-          description: 'Comprueba de forma programática si el navegador actual soporta WebAssembly y experimenta con la naturaleza de tipado dinámico de JS.',
-          initialCode: `// 1. Detección de soporte WebAssembly en el navegador:
-const soporteWasm = typeof WebAssembly === "object" && typeof WebAssembly.instantiate === "function";
+          title: 'Comprobación de Soporte de WebAssembly y Tipos en JavaScript',
+          description: 'Comprueba con este pequeño script si tu navegador actual soporta WebAssembly y experimenta con los tipos de datos en JavaScript.',
+          initialCode: `// 1. Verificamos si este navegador cuenta con soporte nativo para WebAssembly:
+const tieneSoporteWasm = typeof WebAssembly === "object" && typeof WebAssembly.instantiate === "function";
 
-console.log("=== SOPORTE DE TECNOLOGÍAS EN ESTE NAVEGADOR ===");
-console.log("¿Soporta WebAssembly (WASM)?:", soporteWasm ? "SÍ (Aceleración Binaria Disponible)" : "NO");
+console.log("=== COMPATIBILIDAD DE TECNOLOGÍAS WEB ===");
+console.log("¿Tu navegador soporta WebAssembly?:", tieneSoporteWasm ? "SÍ (Aceleración de alto rendimiento lista)" : "NO");
 
-if (soporteWasm) {
-  console.log("Versiones/Extensiones Wasm soportadas:", Object.keys(WebAssembly).join(", "));
-}
+// 2. Naturaleza dinámica de JavaScript (una variable puede cambiar de tipo libremente):
+console.log("\\n=== TIPOS DINÁMICOS EN JAVASCRIPT ===");
+let dato = 100;
+console.log("Valor actual:", dato, "| Tipo de dato:", typeof dato);
 
-// 2. Demostración de Tipado Dinámico en JavaScript:
-console.log("\\n=== TIPADO DINÁMICO EN JS (VS TYPESCRIPT) ===");
-let variableDinamica = 42;
-console.log("Valor:", variableDinamica, "| Tipo detectado:", typeof variableDinamica);
+dato = "¡Ahora contiene texto!";
+console.log("Valor actual:", dato, "| Tipo de dato:", typeof dato);
 
-variableDinamica = "Ahora soy una cadena de texto";
-console.log("Valor:", variableDinamica, "| Tipo detectado:", typeof variableDinamica);
-
-variableDinamica = { modulo: "0612", nombre: "Desarrollo Web Cliente" };
-console.log("Valor:", JSON.stringify(variableDinamica), "| Tipo:", typeof variableDinamica);
-console.log("En TypeScript esto generaría un error de compilación (Type 'string' is not assignable to type 'number').");`
+console.log("\\nEn TypeScript, si intentaras cambiar un número por texto te saldría un aviso de advertencia en rojo en el editor.");`
         }
       ]
     },
 
     {
       id: 'scripts-vs-tradicional-sandbox',
-      title: '5. Lenguajes de Script vs Programación Tradicional y Seguridad Sandbox',
+      title: '5. Lenguajes de Script vs Tradicionales y la Seguridad del Navegador',
       criteriaRef: 'Criterio d)',
-      description: 'Diferencias entre scripts y lenguajes compilados clásicos, el modelo de aislamiento Sandbox del navegador, protección de hardware y las políticas Same-Origin Policy (SOP) y CORS.',
+      description: 'Diferencias entre scripts web y lenguajes de escritorio, la seguridad Sandbox que te protege al navegar y la regla del mismo origen (SOP y CORS).',
       theoryHtml: `
-        <p>A diferencia de los lenguajes de programación tradicionales de escritorio o sistemas (como C, C++ o Java clásico), los lenguajes de script para cliente web operan bajo un paradigma condicionado por la <strong>seguridad, portabilidad e inmediatez</strong>.</p>
+        <p>A diferencia de los lenguajes tradicionales de escritorio (como C, C++ o Java clásico), JavaScript en el cliente web está diseñado desde su origen para ser <strong>seguro, inmediato y portátil</strong>.</p>
 
-        <h4>A. Diferencias Clave: Scripts vs Programación Tradicional</h4>
+        <h4>A. Diferencias Clave: Scripts Web vs Programas Tradicionales</h4>
         <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem;">
           <thead>
             <tr style="background: var(--bg-surface-3); border-bottom: 2px solid var(--border-subtle); text-align: left;">
-              <th style="padding: 10px;">Característica</th>
-              <th style="padding: 10px;">Lenguajes Tradicionales (C, C++, Java)</th>
-              <th style="padding: 10px;">Scripts de Cliente Web (JavaScript)</th>
+              <th style="padding: 10px;">Aspecto</th>
+              <th style="padding: 10px;">Programas Tradicionales (C, C++, Java)</th>
+              <th style="padding: 10px;">Scripts Web (JavaScript)</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
-              <td style="padding: 10px;"><strong>Compilación</strong></td>
-              <td style="padding: 10px;">Previa a la ejecución (AOT - Ahead Of Time) a binario o bytecode.</td>
-              <td style="padding: 10px;">Interpretación y compilación dinámica JIT al vuelo en el navegador.</td>
+              <td style="padding: 10px;"><strong>¿Cómo se ejecutan?</strong></td>
+              <td style="padding: 10px;">Se compilan antes de usarse en un archivo ejecutable (<code>.exe</code> o binario).</td>
+              <td style="padding: 10px;">Se descargan y ejecutan directamente en el navegador del usuario.</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-subtle);">
-              <td style="padding: 10px;"><strong>Gestión de Memoria</strong></td>
-              <td style="padding: 10px;">Manual (punteros <code>malloc/free</code>) o dependiente de JVM.</td>
-              <td style="padding: 10px;">Automática y segura mediante <em>Garbage Collector</em>. Sin punteros directos.</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border-subtle);">
-              <td style="padding: 10px;"><strong>Acceso al Sistema</strong></td>
-              <td style="padding: 10px;">Acceso total al sistema de archivos, sockets y hardware según permisos de usuario.</td>
-              <td style="padding: 10px;"><strong>Aislamiento estricto (Sandbox)</strong>: Sin acceso directo a ficheros del SO ni memoria física.</td>
+              <td style="padding: 10px;"><strong>Acceso al ordenador</strong></td>
+              <td style="padding: 10px;">Pueden acceder a carpetas del disco duro, periféricos y archivos del sistema.</td>
+              <td style="padding: 10px;"><strong>Aislados por seguridad</strong>: No pueden tocar tus archivos privados ni el sistema operativo.</td>
             </tr>
             <tr>
-              <td style="padding: 10px;"><strong>Tipado</strong></td>
-              <td style="padding: 10px;">Estático y fuerte (verificado antes de compilar).</td>
-              <td style="padding: 10px;">Dinámico y débil (coerción implícita de tipos).</td>
+              <td style="padding: 10px;"><strong>Gestión de memoria</strong></td>
+              <td style="padding: 10px;">A menudo manual (el programador debe reservar y liberar memoria).</td>
+              <td style="padding: 10px;">Automática mediante el <em>Garbage Collector</em> (limpia la memoria que ya no se usa).</td>
             </tr>
           </tbody>
         </table>
 
         <h4>B. El Modelo de Seguridad Sandbox (Caja de Arena)</h4>
-        <p>Cuando un usuario entra en una página web, está descargando y ejecutando código JavaScript escrito por un desconocido en su ordenador. Si no existieran barreras de seguridad, cualquier sitio web podría leer tus contraseñas locales, infectar el sistema operativo o formatear el disco duro.</p>
-        <p>Para evitarlo, el navegador ejecuta el código JavaScript dentro de una <strong>Sandbox (Caja de Arena)</strong>:</p>
+        <p>Cada vez que entras en una página web nueva en internet, tu navegador está descargando y ejecutando código creado por una persona que no conoces. Si no existiera protección, cualquier página podría leer tus fotos privadas, tus contraseñas o borrarte el disco duro.</p>
+        <p>Para protegerte, los navegadores encierran a JavaScript en una <strong>Sandbox (Caja de Arena)</strong> con reglas estrictas:</p>
         <ul>
-          <li><strong>Prohibición de acceso al Sistema de Archivos</strong>: Una página web no puede ejecutar sentencias para abrir <code>C:\\Windows</code> o <code>/etc/passwd</code>. La única forma de leer un fichero es si el usuario lo selecciona voluntariamente mediante un <code>&lt;input type="file"&gt;</code> o la moderna <em>File System Access API</em> (con confirmación explícita del usuario).</li>
-          <li><strong>Aislamiento de Procesos por Sitio (Site Isolation)</strong>: Cada pestaña y origen web se ejecuta en un proceso de memoria del sistema operativo independiente para mitigar ataques como <em>Spectre</em>.</li>
-          <li><strong>Permisos Explícitos para Periféricos</strong>: El acceso a la cámara web, micrófono, geolocalización o notificaciones requiere la autorización explícita del usuario mediante la <em>Permissions API</em>.</li>
+          <li><strong>Prohibido tocar archivos del disco duro</strong>: Una web no puede leer <code>C:\\MisDocumentos</code> por su cuenta. La única forma de que lea un archivo es si tú lo seleccionas voluntariamente en un botón de subida de archivos (<code>&lt;input type="file"&gt;</code>).</li>
+          <li><strong>Permisos obligatorios</strong>: Si una página web necesita acceder a tu cámara, micrófono o localización GPS, el navegador te muestra una ventana de aviso para que des tu permiso explícito.</li>
+          <li><strong>Aislamiento entre pestañas</strong>: Lo que ocurre en una pestaña de tu banco no puede espiar ni interferir con lo que ocurre en otra pestaña abierta.</li>
         </ul>
 
-        <h4>C. Políticas de Seguridad Web: Same-Origin Policy (SOP) y CORS</h4>
-        <p>La <strong>Política del Mismo Origen (Same-Origin Policy - SOP)</strong> es la piedra angular de la seguridad en navegadores. Establece que un script ejecutado en una página web solo puede acceder a recursos (DOM, cookies, peticiones AJAX) de otro documento si ambos comparten exactamente el mismo <strong>Origen</strong>.</p>
-        <p>Un origen viene definido por la tupla: <code>Protocolo + Dominio (Host) + Puerto</code>:</p>
+        <h4>C. La Regla del Mismo Origen (Same-Origin Policy - SOP) y CORS</h4>
+        <p>La <strong>Política del Mismo Origen</strong> es la regla de seguridad más importante de internet: establece que una página web solo puede consultar y compartir datos con su propio sitio web.</p>
+        <p>Dos direcciones tienen el <strong>mismo origen</strong> si coinciden exactamente en tres cosas: <strong>Protocolo + Dominio + Puerto</strong>:</p>
         <div style="background: var(--bg-surface-2); padding: 12px; border-radius: var(--radius-md); font-family: var(--font-code); font-size: 0.82rem; margin: 12px 0;">
-          Origen Base: https://www.ejemplo.es:443<br>
-          • https://www.ejemplo.es:443/contacto.html &nbsp;──► MISMO ORIGEN (Mismo protocolo, host y puerto)<br>
-          • <span style="color: var(--color-danger);">http://</span>www.ejemplo.es:443/api &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;──► DISTINTO ORIGEN (Protocolo http vs https)<br>
-          • https://<span style="color: var(--color-danger);">tienda.</span>ejemplo.es:443 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;──► DISTINTO ORIGEN (Subdominio diferente)<br>
-          • https://www.ejemplo.es:<span style="color: var(--color-danger);">8080</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;──► DISTINTO ORIGEN (Puerto 8080 vs 443)
+          Página de partida: https://www.miinstituto.es:443<br>
+          • https://www.miinstituto.es:443/contacto.html &nbsp;──► MISMO ORIGEN (Permitido)<br>
+          • <span style="color: var(--color-danger);">http://</span>www.miinstituto.es:443 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;──► DISTINTO ORIGEN (Cambia el protocolo http vs https)<br>
+          • https://<span style="color: var(--color-danger);">alumnos.</span>miinstituto.es:443 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;──► DISTINTO ORIGEN (Cambia el subdominio)<br>
+          • https://www.miinstituto.es:<span style="color: var(--color-danger);">8080</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;──► DISTINTO ORIGEN (Cambia el puerto)
         </div>
-        <p>Para permitir que una API legítima en un servidor responda a peticiones de otro origen, se emplea <strong>CORS (Cross-Origin Resource Sharing)</strong>: el servidor debe enviar cabeceras HTTP explícitas como <code>Access-Control-Allow-Origin: *</code> autorizando el acceso.</p>
+        <p>¿Qué pasa si tu página web necesita consultar datos legítimos a una API externa (por ejemplo, para mostrar el tiempo meteorológico)? Para eso existe <strong>CORS</strong>: el servidor de la API debe enviar una cabecera autorizando expresamente a tu página a recibir la información.</p>
       `,
       callout: {
         type: 'fp-exam',
         title: 'Pregunta Clave de Examen Oficial',
-        text: '¿Qué es una petición "Preflight" (previa) en CORS y qué método HTTP utiliza? <strong>Respuesta:</strong> Es una comprobación preliminar automática que realiza el navegador antes de enviar peticiones potencialmente peligrosas (métodos PUT, DELETE o con cabeceras personalizadas). El navegador envía una petición con el método <strong>OPTIONS</strong> al servidor preguntando si la operación está autorizada antes de ejecutar la petición real.'
+        text: '¿Qué es una petición previa o "Preflight" en CORS?<br><br><strong>Respuesta sencilla:</strong> Cuando una página web va a realizar una operación importante hacia otro servidor diferente (como borrar o modificar datos), el navegador envía antes de forma automática una comprobación rápida y transparente con el método HTTP <strong>OPTIONS</strong> para preguntar: <em>"¿Tengo permiso para hacer esta petición?"</em>. Si el servidor responde que sí, se envía la petición real.'
       },
       examples: [
         {
           id: 'ex-sop-checker',
           title: 'Comprobador Interactivo de Mismo Origen (SOP)',
-          description: 'Función en vivo que analiza dos URLs completas y determina matemáticamente si cumplen la regla de Same-Origin Policy.',
-          initialCode: `// Función que evalúa si dos URLs comparten el mismo origen según el estándar W3C
-function verificarMismoOrigen(urlA, urlB) {
+          description: 'Prueba esta función que compara dos direcciones web y comprueba si el navegador permitiría la comunicación entre ellas.',
+          initialCode: `// Función didáctica que comprueba si dos URLs cumplen la regla del Mismo Origen
+function comprobarMismoOrigen(url1, url2) {
   try {
-    const a = new URL(urlA);
-    const b = new URL(urlB);
+    const a = new URL(url1);
+    const b = new URL(url2);
 
-    const mismoProtocolo = a.protocol === b.protocol;
-    const mismoHost = a.hostname === b.hostname;
-    const mismoPuerto = (a.port || (a.protocol === "https:" ? "443" : "80")) === 
-                        (b.port || (b.protocol === "https:" ? "443" : "80"));
+    const coincideProtocolo = a.protocol === b.protocol;
+    const coincideDominio = a.hostname === b.hostname;
+    const coincidePuerto = (a.port || (a.protocol === "https:" ? "443" : "80")) ===
+                           (b.port || (b.protocol === "https:" ? "443" : "80"));
 
-    const esMismoOrigen = mismoProtocolo && mismoHost && mismoPuerto;
+    const esValido = coincideProtocolo && coincideDominio && coincidePuerto;
 
     return {
-      urlA: a.origin,
-      urlB: b.origin,
-      esMismoOrigen,
-      motivo: esMismoOrigen 
-        ? "✓ Comparten protocolo, hostname y puerto." 
-        : "✗ Violación SOP: " + [
-            !mismoProtocolo ? "Protocolo distinto" : "",
-            !mismoHost ? "Host distinto" : "",
-            !mismoPuerto ? "Puerto distinto" : ""
+      esValido,
+      mensaje: esValido 
+        ? "✓ PERMITIDO: Mismo protocolo, dominio y puerto."
+        : "✗ BLOQUEADO: Diferente " + [
+            !coincideProtocolo ? "protocolo" : "",
+            !coincideDominio ? "dominio" : "",
+            !coincidePuerto ? "puerto" : ""
           ].filter(Boolean).join(", ")
     };
-  } catch (err) {
-    return { error: "URL inválida: " + err.message };
+  } catch (error) {
+    return { esValido: false, mensaje: "URL no válida" };
   }
 }
 
-// Casos de prueba didácticos:
-console.log("=== COMPROBACIÓN EMPÍRICA DE SAME-ORIGIN POLICY ===");
-const caso1 = verificarMismoOrigen("https://fp.murciaeduca.es/daw", "https://fp.murciaeduca.es/noticias");
-console.log("Caso 1 (Misma web, distinta ruta):", caso1.esMismoOrigen ? "PERMITIDO" : "BLOQUEADO", "-", caso1.motivo);
+// Probamos casos habituales:
+console.log("=== COMPROBACIÓN DE SAME-ORIGIN POLICY ===");
 
-const caso2 = verificarMismoOrigen("https://aula.murciaeduca.es", "https://fp.murciaeduca.es");
-console.log("Caso 2 (Subdominio diferente):", caso2.esMismoOrigen ? "PERMITIDO" : "BLOQUEADO", "-", caso2.motivo);
+const prueba1 = comprobarMismoOrigen("https://mira.ies.es/inicio", "https://mira.ies.es/notas");
+console.log("Misma web, distinta página:", prueba1.mensaje);
 
-const caso3 = verificarMismoOrigen("http://localhost:3000", "https://localhost:3000");
-console.log("Caso 3 (HTTP vs HTTPS):", caso3.esMismoOrigen ? "PERMITIDO" : "BLOQUEADO", "-", caso3.motivo);`
+const prueba2 = comprobarMismoOrigen("https://mira.ies.es", "http://mira.ies.es");
+console.log("HTTPS frente a HTTP:", prueba2.mensaje);
+
+const prueba3 = comprobarMismoOrigen("https://mira.ies.es", "https://campus.ies.es");
+console.log("Distinto subdominio:", prueba3.mensaje);`
         }
       ]
     },
 
     {
       id: 'integracion-html-modulos-csp',
-      title: '6. Integración de JavaScript con HTML5, Módulos ES6 y CSP',
+      title: '6. Cómo Añadir JavaScript a HTML: Métodos de Carga y Módulos Modernos',
       criteriaRef: 'Criterio e)',
-      description: 'Mecanismos de inserción de scripts en el documento HTML, atributos async vs defer, el sistema de módulos estándar de JavaScript (ES Modules) y directivas de seguridad CSP.',
+      description: 'Las distintas formas de enlazar scripts a una página web, cuándo usar async y defer, y las ventajas de organizar tu código con módulos ES6.',
       theoryHtml: `
-        <p>El estándar de desarrollo web actual establece una <strong>separación estricta de responsabilidades</strong> entre tres tecnologías complementarias: <strong>HTML5</strong> para la estructura y semántica del contenido, <strong>CSS3</strong> para la presentación y diseño visual, y <strong>JavaScript</strong> para el comportamiento y la reactividad.</p>
+        <p>Para que una página web funcione correctamente, debemos seguir el principio de <strong>separación de responsabilidades</strong>: el archivo <strong>HTML</strong> contiene la estructura y contenido, el <strong>CSS</strong> define los colores y aspecto visual, y el <strong>JavaScript</strong> aporta la interactividad y la lógica.</p>
 
-        <h4>A. Mecanismos de Carga de Scripts en HTML: <code>sync</code> vs <code>async</code> vs <code>defer</code></h4>
-        <p>Cuando el motor del navegador analiza (parsea) el código HTML línea por línea y encuentra una etiqueta <code>&lt;script&gt;</code>, el comportamiento varía radicalmente según los atributos presentes:</p>
+        <h4>A. ¿Cómo Carga el Navegador las Etiquetas <code>&lt;script&gt;</code>?</h4>
+        <p>Cuando el navegador lee el código HTML de arriba a abajo y se encuentra con una etiqueta de script, su forma de actuar cambia según el atributo que utilicemos:</p>
         <ul>
-          <li><strong>Script Clásico Síncrono (<code>&lt;script src="app.js"&gt;</code>)</strong>:
-            <p><strong>Bloquea el Parser HTML</strong>. El navegador detiene la construcción del DOM, descarga el archivo por la red, lo compila y ejecuta de inmediato. Hasta que no finaliza, el resto del HTML no se procesa. Si se coloca en el <code>&lt;head&gt;</code> sin atributos, retrasa el First Contentful Paint (FCP).</p>
+          <li><strong>Script Tradicional (<code>&lt;script src="app.js"&gt;</code>)</strong>:
+            <p><strong>Detiene la lectura del HTML</strong>. El navegador deja de dibujar la página mientras descarga el archivo y lo ejecuta. Si el archivo es grande o la conexión es lenta, el usuario verá la pantalla congelada durante unos instantes.</p>
           </li>
           <li><strong>Script Asíncrono (<code>&lt;script src="analitica.js" async&gt;</code>)</strong>:
-            <p>El script se descarga en segundo plano sin pausar el parser HTML. <em>Atención:</em> En el instante exacto en que finaliza la descarga por red, <strong>el parser se detiene para ejecutar el script</strong>. Los scripts <code>async</code> <strong>no garantizan el orden de ejecución</strong> (se ejecutan según terminen de descargarse). Solo se recomiendan para librerías independientes que no dependan del DOM ni de otros scripts (ej: Google Analytics).</p>
+            <p>Se descarga en segundo plano sin frenar la página. Sin embargo, en el instante exacto en que termina de descargarse, <strong>se ejecuta de inmediato</strong> deteniendo lo que esté haciendo el navegador. Además, no respeta el orden en que los escribiste. Solo se recomienda para scripts independientes que no necesitan interactuar con tu HTML (por ejemplo, Google Analytics).</p>
           </li>
-          <li><strong>Script Diferido (<code>&lt;script src="app.js" defer&gt;</code>) — La Práctica Recomendada</strong>:
-            <p>El script se descarga en paralelo mientras el HTML continúa parseándose fluidamente. Su ejecución se pospone hasta que el HTML termina de analizarse por completo, justo antes del evento <code>DOMContentLoaded</code>. <strong>Garantiza el orden de ejecución</strong> en el que fueron declarados en el HTML.</p>
+          <li><strong>Script Diferido (<code>&lt;script src="app.js" defer&gt;</code>) — La Opción Recomendada</strong>:
+            <p>Se descarga en segundo plano mientras el HTML sigue leyéndose con total fluidez. Se ejecuta de forma ordenada justo cuando el documento HTML ha terminado de construirse por completo. <strong>Es la mejor práctica para la mayoría de scripts tradicionales</strong>.</p>
           </li>
         </ul>
 
-        <h4>B. Módulos Nativos de JavaScript (ES Modules: <code>type="module"</code>)</h4>
-        <p>Desde ES2015, los navegadores soportan de forma nativa la modularidad sin requerir herramientas externas:</p>
+        <h4>B. Módulos Modernos de JavaScript (<code>type="module"</code>)</h4>
+        <p>En el desarrollo web actual, la forma estándar de escribir código limpio y organizado es utilizando módulos nativos:</p>
         <div style="background: var(--bg-surface-2); padding: 12px; border-radius: var(--radius-md); font-family: var(--font-code); font-size: 0.85rem; margin: 12px 0;">
           &lt;script type="module" src="main.js"&gt;&lt;/script&gt;
         </div>
-        <p>Características esenciales de los módulos ES6 en el navegador:</p>
+        <p>Ventajas que te ofrecen los módulos:</p>
         <ol>
-          <li><strong>Comportamiento <code>defer</code> implícito</strong>: Los scripts declarados con <code>type="module"</code> se comportan automáticamente como diferidos (no bloquean el renderizado HTML).</li>
-          <li><strong>Ámbito propio de módulo (Module Scope)</strong>: Las variables o funciones declaradas en un módulo no contaminan el objeto global <code>window</code>. Para compartir elementos, deben exportarse explícitamente con <code>export</code> e importarse con <code>import</code>.</li>
-          <li><strong>Modo Estricto automático</strong>: Los módulos siempre se ejecutan en modo estricto (<code>"use strict"</code>).</li>
-          <li><strong>Sujetos a la política CORS</strong>: Los módulos cargados desde orígenes externos deben incluir cabeceras CORS válidas.</li>
-          <li><strong>Importaciones dinámicas</strong>: Permiten cargar módulos bajo demanda (Code Splitting / Lazy Loading) con la función asíncrona <code>import('./modulo.js')</code> devolviendo una Promesa.</li>
+          <li><strong>Se comportan como <code>defer</code> automáticamente</strong>: No bloquean la carga visual de la página web.</li>
+          <li><strong>Código organizado</strong>: Puedes separar tus funciones en varios archivos y conectarlos fácilmente usando <code>export</code> para compartir e <code>import</code> para utilizarlas.</li>
+          <li><strong>Variables aisladas</strong>: Las variables que creas en un archivo no chocan accidentalmente con las de otros archivos.</li>
+          <li><strong>Modo estricto automático</strong>: Activan por defecto buenas prácticas de programación (evitan errores comunes de JavaScript).</li>
         </ol>
 
-        <h4>C. Políticas de Seguridad de Contenido (CSP - Content Security Policy)</h4>
-        <p>Para mitigar ataques de inyección de código malicioso como <strong>XSS (Cross-Site Scripting)</strong> y secuestro de clics (Clickjacking), los servidores web envían la cabecera HTTP <code>Content-Security-Policy</code>:</p>
-        <ul>
-          <li>Restringe de qué dominios específicos está permitido cargar scripts, hojas de estilo o imágenes.</li>
-          <li>Por defecto, una política CSP estricta <strong>prohíbe los scripts inline</strong> (código dentro de <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> o atributos <code>onclick="..."</code>) y la función <code>eval()</code>, obligando a vincular código JavaScript en ficheros externos desacoplados.</li>
-        </ul>
+        <h4>C. Buena Práctica Fundamental: Evita el Código Incrustado</h4>
+        <p>En el desarrollo profesional está totalmente desaconsejado escribir código JavaScript dentro del propio HTML (como por ejemplo el antiguo <code>&lt;button onclick="saludar()"&gt;</code>). Mezcla responsabilidades y hace el código difícil de mantener. La forma correcta y limpia es usar siempre <code>addEventListener</code> desde tu archivo JavaScript independiente.</p>
       `,
       callout: {
         type: 'pro-tip',
-        title: 'Buenas Prácticas Profesionales',
-        text: 'En el desarrollo web profesional moderno está absolutamente desaconsejado el uso de manejadores de eventos en línea (ej: <code>&lt;button onclick="enviar()"&gt;</code>). Viola el principio de separación de responsabilidades y es bloqueado por las políticas CSP estrictas en producción. Utiliza siempre <code>addEventListener</code> desde tus archivos de script.'
+        title: 'Consejo para tus Prácticas y Proyectos',
+        text: 'En tus proyectos de clase, utiliza siempre <code>&lt;script type="module" src="..."&gt;</code> o <code>&lt;script defer src="..."&gt;</code> en la cabecera (<code>&lt;head&gt;</code>). De esta manera tu página cargará sin bloqueos y tendrás la garantía de que todo el HTML estará listo cuando tu código JavaScript empiece a funcionar.'
       },
       examples: [
         {
           id: 'ex-module-simulation',
-          title: 'Simulación de Encapsulamiento Modular y Prevención de Colisiones Globales',
-          description: 'Demostración de cómo el ámbito de módulo previene colisiones accidentales en window frente al uso de variables globales clásicas.',
-          initialCode: `// 1. Simulación de patrón de módulo con ámbito cerrado:
-const ModuloCalculadoraFP = (() => {
-  // Variable privada (inaccesible desde el exterior / window):
-  const tasaIva = 0.21;
+          title: 'Simulación: Cómo los Módulos Protegen Nuestras Variables',
+          description: 'Comprueba cómo encapsular código evita conflictos de nombres en comparación con usar variables globales sueltas.',
+          initialCode: `// Simulación didáctica de cómo funciona un módulo:
+const ModuloCalculadora = (() => {
+  // Esta variable es privada de este módulo (nadie desde fuera puede modificarla por error):
+  const ivaGeneral = 0.21;
 
-  function calcularTotalConIva(baseImponible) {
-    return baseImponible + (baseImponible * tasaIva);
+  function calcularTotalConIva(precioBase) {
+    return precioBase + (precioBase * ivaGeneral);
   }
 
-  // Interfaz pública expuesta:
+  // Exportamos solo lo que queremos que otros utilicen:
   return {
     calcularTotal: calcularTotalConIva
   };
 })();
 
-console.log("=== ENCAPSULAMIENTO MODULAR ===");
-const precioFinal = ModuloCalculadoraFP.calcularTotal(100);
-console.log("Precio final calculado (100€ + 21%):", precioFinal + "€");
+console.log("=== ENCAPSULAMIENTO Y MÓDULOS ===");
+const total = ModuloCalculadora.calcularTotal(100);
+console.log("Precio final con 21% de IVA:", total + "€");
 
-// Comprobación de que la variable interna no contamina el entorno:
-console.log("¿Existe 'tasaIva' en el ámbito global?:", typeof tasaIva); // undefined
+// Comprobamos que la variable interna no contamina el entorno global:
+console.log("¿Se puede acceder a 'ivaGeneral' desde fuera?:", typeof ivaGeneral); // undefined
 
-console.log("\\nEn los módulos ES6 (type='module'), este aislamiento ocurre de forma nativa sin necesidad de crear funciones autoejecutables (IIFE).");`
+console.log("\\nEn los módulos ES6 modernos (type='module'), este aislamiento ocurre de forma automática y natural usando simplemente 'export' e 'import'.");`
         }
       ]
     },
 
     {
       id: 'devtools-depuracion-auditoria',
-      title: '7. Herramientas DevTools, Depuración, Linters y Auditoría Lighthouse',
+      title: '7. Herramientas DevTools, Depuración y Auditoría con Lighthouse',
       criteriaRef: 'Criterio f)',
-      description: 'Dominio de las herramientas de desarrollo del navegador (DevTools), puntos de interrupción, análisis de red, linters (ESLint), formateadores (Prettier) y auditorías de rendimiento con Google Lighthouse y Core Web Vitals.',
+      description: 'Las pestañas imprescindibles de las herramientas de desarrollador (F12), cómo encontrar y corregir errores, auditorías con Lighthouse y linters de código.',
       theoryHtml: `
-        <p>Un futuro Técnico Superior en DAW debe dominar las herramientas profesionales de diagnóstico, depuración y auditoría que integran los navegadores modernos (accesibles mediante la tecla <strong>F12</strong> o <em>Ctrl+Shift+I</em>).</p>
+        <p>Cualquier desarrollador web profesional necesita dominar las <strong>Herramientas de Desarrollador (DevTools)</strong> que vienen integradas en todos los navegadores modernos. Se abren pulsando la tecla <strong>F12</strong> (o <em>Ctrl + Shift + I</em>).</p>
 
-        <h4>A. Las Pestañas Esenciales de DevTools</h4>
+        <h4>A. Las Pestañas Imprescindibles de las DevTools</h4>
         <ul>
-          <li><strong>Elements (Elementos / Inspector)</strong>:
-            <p>Muestra el árbol DOM en vivo (tras las mutaciones de JavaScript), el panel de estilos CSS computados (<em>Computed Styles</em>) y el diagrama de cajas (<em>Box Model: margin, border, padding, content</em>). Permite modificar atributos y clases en tiempo real.</p>
+          <li><strong>Elementos (Elements / Inspector)</strong>:
+            <p>Muestra el código HTML y los estilos CSS en tiempo real. Puedes modificar colores, tamaños, textos o márgenes directamente en la pantalla para comprobar cómo quedan antes de escribirlos en tu código.</p>
           </li>
-          <li><strong>Console (Consola)</strong>:
-            <p>Entorno REPL (<em>Read-Eval-Print Loop</em>) para ejecutar sentencias interactivas, inspeccionar errores en tiempo de ejecución y utilizar la API <code>console</code> avanzada (<code>console.table</code>, <code>console.group</code>, <code>console.time</code>, <code>console.dir</code>).</p>
+          <li><strong>Consola (Console)</strong>:
+            <p>Es tu bloc de notas y zona de pruebas. Aquí aparecen los mensajes de error de tu código y puedes probar sentencias interactivas usando <code>console.log()</code> o la práctica función <code>console.table()</code>.</p>
           </li>
-          <li><strong>Sources / Debugger (Fuentes y Depuración)</strong>:
-            <p>Permite navegar por el código fuente, configurar <strong>Breakpoints (puntos de interrupción)</strong> condicionales, pausar la ejecución en excepciones no capturadas, inspeccionar la pila de llamadas (<em>Call Stack</em>) y vigilar variables en tiempo real con <em>Watch Expressions</em>. La sentencia en código <code>debugger;</code> invoca automáticamente esta pausa.</p>
+          <li><strong>Fuentes / Depurador (Sources / Debugger)</strong>:
+            <p>Te permite examinar tus archivos de código y colocar <strong>puntos de interrupción (Breakpoints)</strong>. Cuando la ejecución llega a un punto de parada, la página se pausa y puedes ver paso a paso qué vale cada variable. También puedes provocar esta pausa escribiendo la palabra clave <code>debugger;</code> en tu código.</p>
           </li>
-          <li><strong>Network (Red)</strong>:
-            <p>Registra cada petición HTTP/HTTPS: código de estado (200, 304, 404, 500), método, tamaño transferido por cable vs tamaño descomprimido, tipo MIME y gráfico en cascada (<em>Waterfall</em>). Permite simular conexiones lentas (<em>Network Throttling: Fast 3G, Slow 3G, Offline</em>) para verificar la robustez de la app.</p>
-          </li>
-          <li><strong>Performance (Rendimiento)</strong>:
-            <p>Graba perfiles de uso de CPU y tasa de fotogramas por segundo (FPS). Esencial para detectar <strong>Layout Thrashing</strong> (operaciones forzadas de reflujo en bucles que provocan tirones visuales).</p>
-          </li>
-          <li><strong>Application / Storage (Almacenamiento)</strong>:
-            <p>Inspecciona y limpia Cookies, <code>localStorage</code>, <code>sessionStorage</code>, <code>IndexedDB</code>, la caché de la aplicación y el ciclo de vida de los <em>Service Workers</em> (PWA).</p>
+          <li><strong>Red (Network)</strong>:
+            <p>Muestra cada archivo, imagen o dato que la página descarga por internet, cuánto tiempo tarda y si ha habido algún error (como el famoso error 404 de archivo no encontrado).</p>
           </li>
         </ul>
 
-        <h4>B. Auditorías de Rendimiento con Google Lighthouse</h4>
-        <p>Lighthouse es una herramienta automatizada de código abierto integrada en Chrome DevTools que audita cualquier página web evaluando 4 pilares fundamentales:</p>
+        <h4>B. Auditorías de Calidad con Google Lighthouse: El Boletín de Notas de tu Web</h4>
+        <p><strong>Lighthouse</strong> es una herramienta automática integrada directamente en la pestaña <em>Lighthouse</em> de las DevTools de Google Chrome y Edge. Con solo pulsar un botón, analiza tu página web y le otorga una <strong>puntuación del 0 al 100</strong> en cuatro apartados clave:</p>
         <ol>
-          <li><strong>Rendimiento (Performance)</strong>: Mide los <strong>Core Web Vitals</strong>:
-            <ul>
-              <li><strong>LCP (Largest Contentful Paint)</strong>: Mide la velocidad de carga percibida. Debe ser inferior a 2.5 segundos.</li>
-              <li><strong>INP (Interaction to Next Paint)</strong>: Reemplazo oficial de FID en 2024. Mide la latencia de respuesta de la interfaz a las interacciones del usuario. Debe ser menor de 200 ms.</li>
-              <li><strong>CLS (Cumulative Layout Shift)</strong>: Mide la estabilidad visual (evitar que los elementos salten de posición mientras la página carga). Debe ser inferior a 0.1.</li>
-            </ul>
+          <li><strong>Rendimiento (Performance)</strong>:
+            <p>¿Tu página carga rápido? Evalúa que la página aparezca pronto en pantalla, que responda con agilidad al hacer clic y que los elementos no peguen saltos molestos mientras se cargan las imágenes.</p>
           </li>
-          <li><strong>Accesibilidad (Accessibility / a11y)</strong>: Evalúa contraste de colores, textos alternativos en imágenes (<code>alt</code>), jerarquía correcta de encabezados (<code>h1-h6</code>) y roles ARIA.</li>
-          <li><strong>Buenas Prácticas (Best Practices)</strong>: Comprueba el uso de HTTPS, ausencia de librerías con vulnerabilidades conocidas y prevención de APIs obsoletas.</li>
-          <li><strong>SEO (Search Engine Optimization)</strong>: Verifica etiquetas <code>&lt;title&gt;</code>, meta descripciones, etiquetas <code>viewport</code> para móviles y rastreabilidad.</li>
+          <li><strong>Accesibilidad (Accessibility)</strong>:
+            <p>¿Cualquier persona puede usar tu web con facilidad? Comprueba que los colores tengan suficiente contraste para leerse bien, que las fuentes sean legibles y que las personas que usan lectores de pantalla o navegan solo con el teclado puedan utilizarla sin problemas.</p>
+          </li>
+          <li><strong>Buenas Prácticas (Best Practices)</strong>:
+            <p>¿Tu web está construida con estándares modernos y seguros? Verifica que la web use conexión segura HTTPS y no utilice funciones obsoletas.</p>
+          </li>
+          <li><strong>SEO (Posicionamiento en Buscadores)</strong>:
+            <p>¿Google y otros buscadores entienden de qué trata tu página? Revisa que la página tenga un título claro (<code>&lt;title&gt;</code>), una descripción adecuada y que se adapte bien a pantallas de teléfonos móviles.</p>
+          </li>
         </ol>
 
-        <h4>C. Herramientas de Calidad en el Flujo de Trabajo (Tooling)</h4>
+        <h4>C. Herramientas que te Ayudan a Escribir Código Limpio</h4>
         <ul>
-          <li><strong>Linters (ESLint)</strong>: Analizadores estáticos de código que identifican patrones problemáticos, variables sin usar y posibles bugs antes de ejecutar el programa.</li>
-          <li><strong>Formateadores (Prettier)</strong>: Normalizan el estilo de código (sangrías, comillas, punto y coma) automáticamente en todo el equipo.</li>
-          <li><strong>Gestores de Paquetes y Bundlers (npm, Vite, esbuild)</strong>: Automatizan la instalación de librerías, minificación de ficheros y transpilación para producción.</li>
+          <li><strong>Linters (como ESLint)</strong>: Funcionan como un corrector ortográfico para tu código. Te avisan si declaras variables que nunca utilizas o si cometes errores comunes antes de ejecutar la web.</li>
+          <li><strong>Formateadores (como Prettier)</strong>: Ordenan y sangran el código automáticamente con un solo clic, logrando que todo el equipo trabaje con el mismo estilo limpio y legible.</li>
         </ul>
       `,
       callout: {
-        type: 'fp-exam',
-        title: 'Pregunta Clásica de Examen FP (DAW)',
-        text: '¿Qué es el "Layout Thrashing" (o reflujo forzado sincrónico) en el navegador y cómo se evita? <strong>Respuesta:</strong> Ocurre cuando un script lee una propiedad geométrica del DOM (como <code>offsetHeight</code> o <code>clientWidth</code>) justo después de haber mutado estilos o clases dentro de un bucle. Esto obliga al motor a recalcular de inmediato el Layout para poder devolver la medida actualizada, arruinando el rendimiento (frame drops). Se evita agrupando todas las lecturas de propiedades geométricas antes de realizar cualquier escritura o mutación en el DOM.'
+        type: 'pro-tip',
+        title: '3 Claves para Obtener Buena Puntuación en Lighthouse',
+        text: 'Si quieres que tus proyectos de clase consigan una nota sobresaliente en Lighthouse, aplica siempre estas tres reglas sencillas:<br>1. <strong>Optimiza las imágenes</strong>: no subas fotos gigantescas directamente de la cámara; redúcelas y guárdalas en formatos modernos como WebP.<br>2. <strong>Añade siempre el texto alternativo</strong> (<code>alt="descripción"</code>) en todas las imágenes para garantizar la accesibilidad.<br>3. <strong>Estructura bien tu HTML</strong> con etiquetas semánticas claras (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>) y títulos ordenados (un solo <code>&lt;h1&gt;</code> por página).'
       },
       examples: [
         {
           id: 'ex-devtools-console-pro',
-          title: 'Técnicas Avanzadas de Diagnóstico con la API Console',
-          description: 'Aprende a formatear registros con tablas interactivas, grupos desplegables y cronómetros de alta resolución.',
-          initialCode: `// Demostración de métodos avanzados de auditoría y depuración en consola
-console.log("=== TÉCNICAS AVANZADAS DE CONSOLA PARA DEVTOOLS ===");
+          title: 'Utilidades Prácticas de la Consola de DevTools',
+          description: 'Aprende a mostrar datos en tablas claras y a medir el tiempo exacto que tarda una función con la API Console.',
+          initialCode: `// Ejemplos de métodos útiles de la consola para tus prácticas:
+console.log("=== UTILIDADES PRÁCTICAS DE CONSOLA ===");
 
-// 1. console.table para colecciones de datos complejos:
-const alumnosDAW = [
-  { exp: "0612-01", alumno: "Alejandro Ruiz", modulo: "Cliente", notaMedia: 8.7 },
-  { exp: "0612-02", alumno: "Beatriz Soto", modulo: "Cliente", notaMedia: 9.4 },
-  { exp: "0612-03", alumno: "Carlos Mendoza", modulo: "Cliente", notaMedia: 7.2 }
+// 1. Mostrar colecciones de datos en una tabla ordenada (console.table):
+const listaAlumnos = [
+  { exp: "DAW-01", alumno: "Lucía García", modulo: "Cliente", calificacion: 8.5 },
+  { exp: "DAW-02", alumno: "Marcos Ruiz", modulo: "Cliente", calificacion: 9.2 },
+  { exp: "DAW-03", alumno: "Sara Morales", modulo: "Cliente", calificacion: 7.8 }
 ];
 
-console.log("Renderizado de objetos en formato tabla bidimensional:");
-console.table(alumnosDAW);
+console.log("Visualización cómoda en tabla bidimensional:");
+console.table(listaAlumnos);
 
-// 2. Medición de tiempos de ejecución de algoritmos:
-console.time("⏱ Búsqueda y reducción matemática");
-let acumulador = 0;
-for (let i = 0; i < 100000; i++) {
-  acumulador += Math.sqrt(i);
+// 2. Medir cuánto tiempo tarda una operación (console.time y console.timeEnd):
+console.time("⏱ Tiempo de cálculo");
+let totalSuma = 0;
+for (let i = 0; i < 50000; i++) {
+  totalSuma += i;
 }
-console.timeEnd("⏱ Búsqueda y reducción matemática");
+console.timeEnd("⏱ Tiempo de cálculo");
+console.log("Resultado de la suma:", totalSuma);
 
-// 3. Contadores de ejecución (console.count):
-for (let i = 1; i <= 3; i++) {
-  console.count("Invocación de función crítica");
-}
-
-console.log("Resultado final acumulado:", acumulador.toFixed(2));
-console.log("Consejo: Utiliza 'debugger;' en tu código para abrir el inspector de fuentes en DevTools.");`
+// 3. Consejo de depuración:
+console.log("\\nConsejo: Si escribes 'debugger;' en cualquier línea de tu código, el navegador pausará la ejecución automáticamente para que puedas inspeccionar los datos.");`
         }
       ]
     }
   ],
 
   // =========================================================================
-  // BANCO OFICIAL DE TEST DE AUTOEVALUACIÓN (12 PREGUNTAS TIPO EXAMEN FP)
+  // BANCO DE AUTOEVALUACIÓN (12 PREGUNTAS CLARAS TIPO TEST FP DAW)
   // =========================================================================
   quizzes: [
     {
       id: 'ra1-quiz-1',
-      topicTag: 'Criterio a) Arquitecturas Web',
+      topicTag: 'Criterio a) Cliente vs Servidor',
       difficulty: 'Básico',
       difficultyClass: 'diff-facil',
-      question: '¿Cuál de las siguientes afirmaciones describe con precisión una ventaja clave del procesamiento de datos en el cliente (Frontend) mediante JavaScript frente al procesamiento en servidor?',
+      question: '¿Cuál es una ventaja principal de realizar cálculos y comprobaciones en el navegador (cliente) mediante JavaScript?',
       options: [
-        'Garantiza por sí solo la seguridad e integridad absoluta de la base de datos sin requerir validación posterior.',
-        'Aprovecha los recursos de cómputo y memoria del dispositivo del usuario, reduciendo el tráfico de red y proporcionando respuestas inmediatas a la interfaz.',
-        'Elimina por completo la necesidad de contar con servidores web o servicios de backend en la arquitectura.',
-        'Garantiza que el código no podrá ser inspeccionado ni modificado por ningún usuario o herramienta de auditoría.'
+        'Garantiza por sí solo la seguridad total de la base de datos sin necesidad de validaciones adicionales.',
+        'Aprovecha el procesador y memoria del dispositivo del usuario, dando respuestas inmediatas y reduciendo el tráfico de red.',
+        'Hace innecesario disponer de servidores o servicios de backend en la aplicación.',
+        'Impide que cualquier usuario pueda ver o inspeccionar el código fuente de la aplicación.'
       ],
       correctIndex: 1,
-      explanation: 'El procesamiento en cliente descentraliza la carga computacional ejecutándola en el dispositivo del usuario, lo que reduce drásticamente el ancho de banda y proporciona feedback instantáneo sin sufrir la latencia física de red de cada petición HTTP.'
+      explanation: 'El procesamiento en cliente aprovecha los recursos del equipo del usuario, respondiendo de inmediato a los clics y formularios sin necesidad de esperar a que una petición viaje por internet hasta el servidor.'
     },
     {
       id: 'ra1-quiz-2',
-      topicTag: 'Criterio a) SPAs vs SSR',
+      topicTag: 'Criterio a) Aplicaciones SPAs',
       difficulty: 'Intermedio',
       difficultyClass: 'diff-medio',
-      question: 'En una arquitectura Single Page Application (SPA), ¿qué mecanismo utiliza la aplicación para navegar entre diferentes vistas sin provocar una recarga completa del documento en el navegador?',
+      question: 'En una aplicación de una sola página (Single-Page Application o SPA), ¿cómo cambia el usuario de sección sin que la pantalla parpadee o se recargue entera?',
       options: [
-        'Envía una petición HTTP POST sincrónica al servidor que fuerza el reinicio del socket TCP.',
-        'Destruye el objeto window y descarga un nuevo archivo index.html completo desde la caché HTTP.',
-        'Intercepta los eventos de navegación, actualiza la URL en la barra de direcciones con la History API y manipula dinámicamente el DOM intercambiando datos vía peticiones asíncronas (JSON).',
-        'Ejecuta un reinicio del motor V8 utilizando la sentencia debugger en bucle.'
+        'Reiniciando el navegador cada vez que se hace un clic.',
+        'Descargando un archivo index.html nuevo y completo en cada enlace.',
+        'JavaScript actualiza solo la parte de la pantalla que cambia, pidiendo únicamente los datos nuevos al servidor en formato JSON.',
+        'El servidor bloquea la conexión de red y trabaja únicamente sin internet.'
       ],
       correctIndex: 2,
-      explanation: 'Las SPAs utilizan la History API del navegador (pushState/replaceState) para sincronizar la URL sin recargar la página, y mediante JavaScript solicitan únicamente datos (generalmente JSON) para mutar los nodos correspondientes del DOM en tiempo real.'
+      explanation: 'En las SPAs, la página inicial no se vuelve a recargar; cuando navegas, JavaScript actualiza los elementos visuales necesarios intercambiando pequeños paquetes de datos (JSON) con el servidor.'
     },
     {
       id: 'ra1-quiz-3',
       topicTag: 'Criterio b) Motores del Navegador',
       difficulty: 'Básico',
       difficultyClass: 'diff-facil',
-      question: '¿Qué combinación relaciona correctamente a los navegadores Google Chrome, Mozilla Firefox y Apple Safari con sus respectivos motores de JavaScript?',
+      question: '¿Qué motor de JavaScript utilizan los navegadores Google Chrome y Microsoft Edge?',
       options: [
-        'Chrome: SpiderMonkey | Firefox: V8 | Safari: Chakra',
-        'Chrome: V8 | Firefox: SpiderMonkey | Safari: JavaScriptCore (Nitro)',
-        'Chrome: Blink | Firefox: Gecko | Safari: WebKit',
-        'Chrome: TurboFan | Firefox: Ignition | Safari: Blink'
+        'SpiderMonkey',
+        'V8',
+        'Gecko',
+        'WebKit'
       ],
       correctIndex: 1,
-      explanation: 'V8 es el motor JavaScript de Google (Chrome, Node.js), SpiderMonkey es el motor histórico de Mozilla (Firefox) y JavaScriptCore (también conocido como Nitro) es el motor desarrollado por Apple para Safari y WebKit. (Blink, Gecko y WebKit son motores de renderizado, no de JS).'
+      explanation: 'V8 es el prestigioso motor de JavaScript de alto rendimiento desarrollado por Google, utilizado tanto en Google Chrome y Microsoft Edge como en el entorno de servidor Node.js.'
     },
     {
       id: 'ra1-quiz-4',
-      topicTag: 'Criterio b) Pipeline de Renderizado',
+      topicTag: 'Criterio b) Dibujado en Navegadores',
       difficulty: 'Intermedio',
       difficultyClass: 'diff-medio',
-      question: 'Durante el ciclo de renderizado del navegador (Critical Rendering Path), ¿cuál es la diferencia fundamental entre las fases de Layout (Reflow) y Paint (Repintado)?',
+      question: '¿Cuáles son los tres pasos esenciales que realiza el navegador para dibujar una página web en pantalla?',
       options: [
-        'Layout calcula las dimensiones geométricas y posiciones espaciales de los elementos visibles, mientras que Paint dibuja los píxeles (colores, fondos, sombras) en capas.',
-        'Layout descarga las hojas de estilo de la red y Paint se encarga de compilar el código JavaScript a bytecode.',
-        'Paint solo se ejecuta en la carga inicial y Layout se ejecuta exclusivamente cuando el usuario hace scroll.',
-        'Layout solo afecta a los elementos con display: none y Paint a los que tienen visibility: hidden.'
+        '1) Leer HTML/CSS, 2) Calcular la posición y tamaño de cada elemento, 3) Pintar los colores, textos e imágenes.',
+        '1) Formatear el disco duro, 2) Compilar en C++, 3) Enviar un correo electrónico.',
+        '1) Reiniciar el router, 2) Descargar fuentes, 3) Cerrar las pestañas secundarias.',
+        '1) Borrar las cookies, 2) Crear un archivo PDF, 3) Dibujar los bordes.'
       ],
       correctIndex: 0,
-      explanation: 'Layout (Reflow) es el costoso proceso geométrico donde el navegador calcula las coordenadas espaciales y tamaños de cada caja del Render Tree. Paint es la fase posterior donde se rasterizan visualmente los colores, bordes y tipografías en capas antes del composite final.'
+      explanation: 'El navegador primero analiza el contenido y los estilos (HTML y CSS), después calcula el diseño geométrico de las cajas (dónde va cada elemento) y finalmente pinta los píxeles en la pantalla.'
     },
     {
       id: 'ra1-quiz-5',
-      topicTag: 'Criterio b) Event Loop y Concurrencia',
+      topicTag: 'Criterio b) Asincronía y Event Loop',
       difficulty: 'Examen FP',
       difficultyClass: 'diff-examen',
-      question: 'Analiza el siguiente código: ¿En qué orden exacto aparecerán los números en la consola?\\nconsole.log(10);\\nsetTimeout(() => console.log(20), 0);\\nPromise.resolve().then(() => console.log(30));\\nconsole.log(40);',
+      question: 'Analiza el siguiente código: ¿En qué orden se mostrarán los números en la consola?\\nconsole.log(1);\\nsetTimeout(() => console.log(2), 0);\\nconsole.log(3);',
       options: [
-        '10, 20, 30, 40',
-        '10, 40, 20, 30',
-        '10, 40, 30, 20',
-        '10, 30, 40, 20'
+        '1, 2, 3',
+        '1, 3, 2',
+        '3, 2, 1',
+        '2, 1, 3'
       ],
-      codeSnippet: `console.log(10);
-setTimeout(() => console.log(20), 0);
-Promise.resolve().then(() => console.log(30));
-console.log(40);`,
-      correctIndex: 2,
-      explanation: '10 y 40 se ejecutan de inmediato en el Call Stack síncrono. La microtarea de la Promesa (30) entra en la Microtask Queue, cuya prioridad es máxima respecto a las macrotareas. Por tanto, el Event Loop ejecuta primero la microtarea (30) y finalmente la macrotarea de setTimeout (20).'
+      codeSnippet: `console.log(1);
+setTimeout(() => console.log(2), 0);
+console.log(3);`,
+      correctIndex: 1,
+      explanation: '1 y 3 son síncronos (se ejecutan en el flujo principal de inmediato). El temporizador pasa a la cola de tareas del navegador, y el Event Loop espera a que termine el código principal antes de ejecutar el 2.'
     },
     {
       id: 'ra1-quiz-6',
-      topicTag: 'Criterio c) TypeScript en el Cliente',
+      topicTag: 'Criterio c) TypeScript',
       difficulty: 'Intermedio',
       difficultyClass: 'diff-medio',
-      question: '¿Qué ocurre con los tipos, interfaces y anotaciones de TypeScript cuando una aplicación web se ejecuta en el navegador del usuario?',
+      question: '¿Qué ocurre con los tipos e interfaces de TypeScript cuando ejecutamos una aplicación en el navegador web?',
       options: [
-        'El motor V8 interpreta los tipos en tiempo de ejecución lanzando excepciones de tipo TypeCrash.',
-        'Son completamente eliminados durante la fase de transpilación previa (por tsc o Babel), ejecutándose en el navegador únicamente código JavaScript estándar.',
-        'Se convierten en comentarios multilínea que el navegador evalúa en la cola de microtareas.',
-        'Se empaquetan dentro de un módulo WebAssembly para ser analizados por la GPU.'
+        'El navegador comprueba los tipos en vivo y detiene la página si encuentra un error.',
+        'Son eliminados antes de ejecutarse en el proceso de compilación, ejecutándose en el navegador código JavaScript estándar.',
+        'Se convierten en comentarios de CSS que el navegador interpreta en segundo plano.',
+        'Obligan al navegador a descargar un plugin especial de Microsoft para funcionar.'
       ],
       correctIndex: 1,
-      explanation: 'Los navegadores web no entienden TypeScript de forma nativa. Durante la fase de build (transpilación), el compilador valida los tipos y los suprime íntegramente (Type Erasure), emitiendo código JavaScript vanilla compatible.'
+      explanation: 'Los navegadores web no entienden TypeScript de forma nativa. Antes de publicar la web, las herramientas eliminan los tipos y emiten código JavaScript estándar y limpio que cualquier navegador puede ejecutar.'
     },
     {
       id: 'ra1-quiz-7',
       topicTag: 'Criterio c) WebAssembly (Wasm)',
       difficulty: 'Básico',
       difficultyClass: 'diff-facil',
-      question: '¿Cuál es el propósito principal de WebAssembly (Wasm) en el ecosistema web actual?',
+      question: '¿Para qué se utiliza principalmente WebAssembly (Wasm) en las aplicaciones web actuales?',
       options: [
-        'Sustituir por completo a HTML y CSS para maquetar sitios web sin etiquetas de marcas.',
-        'Permitir la ejecución de código binario compilado a velocidad cuasi-nativa en el navegador para tareas de computación intensiva.',
-        'Obligar a todos los programadores web a escribir código ensamblador en lugar de JavaScript.',
-        'Eliminar los protocolos HTTP para comunicarse directamente con discos duros locales.'
+        'Para sustituir completamente a HTML y diseñar páginas sin etiquetas.',
+        'Para ejecutar código compilado a gran velocidad en tareas pesadas como videojuegos 3D, edición gráfica o de vídeo.',
+        'Para obligar a los usuarios a escribir en lenguaje ensamblador en lugar de JavaScript.',
+        'Para desactivar las conexiones HTTPS de los servidores.'
       ],
       correctIndex: 1,
-      explanation: 'WebAssembly es un formato binario estándar de bajo nivel que permite ejecutar código compilado desde lenguajes como C++, Rust o Go a velocidad casi nativa, conviviendo con JavaScript para tareas de alta exigencia de cálculo (Figma, motores 3D, edición de vídeo).'
+      explanation: 'WebAssembly permite que programas creados en lenguajes como C++ o Rust se ejecuten a velocidad casi nativa dentro del navegador, complementando a JavaScript en tareas de computación intensiva.'
     },
     {
       id: 'ra1-quiz-8',
       topicTag: 'Criterio d) Seguridad Sandbox',
       difficulty: 'Intermedio',
       difficultyClass: 'diff-medio',
-      question: '¿Por qué el modelo Sandbox del navegador prohíbe que el código JavaScript cliente acceda libremente al sistema de archivos local del ordenador del usuario?',
+      question: '¿Por qué el modelo de seguridad "Sandbox" (Caja de Arena) del navegador prohíbe que JavaScript acceda directamente a los archivos de tu disco duro?',
       options: [
-        'Porque los discos duros modernos no soportan la codificación UTF-8 que utiliza JavaScript.',
-        'Porque el motor V8 solo puede almacenar datos en la memoria caché del procesador.',
-        'Para prevenir que cualquier sitio web malicioso descargue y ejecute código que pueda leer, modificar o destruir archivos privados del sistema del usuario.',
-        'Porque la especificación ECMAScript solo permite guardar datos en memoria RAM Volátil.'
+        'Porque los discos duros no son compatibles con el lenguaje JavaScript.',
+        'Para evitar que cualquier sitio web malicioso de internet descargue código que pueda leer o borrar tus archivos personales.',
+        'Porque el navegador solo tiene memoria suficiente para guardar imágenes.',
+        'Para forzar a que todos los ordenadores utilicen discos SSD en lugar de discos mecánicos.'
       ],
-      correctIndex: 2,
-      explanation: 'Al navegar por internet descargamos código de orígenes desconocidos. El Sandbox actúa como una jaula de seguridad que impide el acceso arbitrario al sistema de archivos del sistema operativo, requiriendo siempre la intervención o consentimiento explícito del usuario.'
+      correctIndex: 1,
+      explanation: 'El Sandbox aísla el código web descargado para que no pueda dañar el equipo del usuario ni acceder a su sistema de archivos sin permiso expreso.'
     },
     {
       id: 'ra1-quiz-9',
-      topicTag: 'Criterio d) Same-Origin Policy (SOP)',
+      topicTag: 'Criterio d) Same-Origin Policy',
       difficulty: 'Examen FP',
       difficultyClass: 'diff-examen',
-      question: 'Tomando como origen de referencia "https://aulavirtual.ies.es:443", ¿cuál de las siguientes URLs pertenece al MISMO origen según la política SOP?',
+      question: 'Tomando como dirección base "https://tienda.es:443", ¿cuál de las siguientes opciones pertenece al MISMO ORIGEN según la regla SOP?',
       options: [
-        'http://aulavirtual.ies.es:443/cursos (Protocolo HTTP)',
-        'https://aulavirtual.ies.es:8080/cursos (Puerto 8080)',
-        'https://alumnos.ies.es:443/cursos (Subdominio alumnos.ies.es)',
-        'https://aulavirtual.ies.es/examenes/daw.html (Mismo protocolo https, mismo host y puerto 443 por defecto)'
+        'http://tienda.es:443/catalogo (Protocolo HTTP)',
+        'https://tienda.es:8080/catalogo (Puerto distinto)',
+        'https://blog.tienda.es:443/catalogo (Subdominio distinto)',
+        'https://tienda.es:443/productos/ofertas.html (Mismo protocolo, mismo dominio y mismo puerto)'
       ],
       correctIndex: 3,
-      explanation: 'La regla Same-Origin exige coincidencia exacta en Protocolo (https), Host (aulavirtual.ies.es) y Puerto (443, implícito en HTTPS). La ruta o subcarpeta (/examenes/daw.html) es irrelevante para el origen.'
+      explanation: 'La regla del Mismo Origen requiere que coincidan exactamente el protocolo (https), el dominio (tienda.es) y el puerto (443). La ruta o carpeta interna (/productos/ofertas.html) puede ser cualquier otra.'
     },
     {
       id: 'ra1-quiz-10',
-      topicTag: 'Criterio e) Inclusión de Scripts: defer vs async',
+      topicTag: 'Criterio e) Métodos de Carga: defer vs async',
       difficulty: 'Intermedio',
       difficultyClass: 'diff-medio',
-      question: '¿Cuál es la diferencia fundamental entre los atributos booleanos "defer" y "async" en la etiqueta <script src="...">?',
+      question: '¿Por qué se recomienda habitualmente utilizar el atributo "defer" (&lt;script src="app.js" defer&gt;) en lugar de un script normal?',
       options: [
-        'defer ejecuta el script apenas termina de descargarse; async espera a que el HTML esté completamente parseado.',
-        'defer garantiza el orden de ejecución declarado en el HTML y espera a que el DOM esté parseado; async ejecuta de inmediato en cuanto finaliza la descarga de red sin garantizar orden.',
-        'async solo funciona en archivos .css y defer solo en archivos .json.',
-        'defer bloquea el análisis del HTML y async lo duplica en dos hilos paralelos.'
+        'Porque duplica la memoria RAM del navegador automáticamente.',
+        'Porque descarga el script sin frenar la lectura del HTML y lo ejecuta de forma ordenada cuando el documento está listo.',
+        'Porque convierte automáticamente el código JavaScript a lenguaje C++.',
+        'Porque impide que el código muestre mensajes de error en la consola.'
       ],
       correctIndex: 1,
-      explanation: 'defer descarga en segundo plano y pospone la ejecución hasta finalizar el parsing HTML, respetando el orden secuencial de los scripts. async ejecuta de inmediato en cuanto se descarga por red, lo que detiene el parser y puede alterar el orden de dependencias.'
+      explanation: 'El atributo "defer" permite que la página web se cargue y se dibuje sin bloqueos, posponiendo la ejecución del script ordenadamente hasta que todo el HTML ha sido analizado.'
     },
     {
       id: 'ra1-quiz-11',
-      topicTag: 'Criterio e) Módulos ES6 en Navegadores',
+      topicTag: 'Criterio e) Módulos Modernos ES6',
       difficulty: 'Intermedio',
       difficultyClass: 'diff-medio',
-      question: 'Al incluir un script con el atributo type="module" (<script type="module" src="app.js">), ¿cuál de las siguientes propiedades se aplica de forma automática y obligatoria?',
+      question: 'Al usar un script con el atributo type="module" (&lt;script type="module" src="app.js"&gt;), ¿cuál de las siguientes ventajas se aplica automáticamente?',
       options: [
-        'Todas las variables declaradas se registran automáticamente en el objeto global window.',
-        'El script se ejecuta de forma síncrona bloqueando la descarga de imágenes.',
-        'Se ejecuta automáticamente en modo estricto ("use strict"), tiene su propio ámbito de módulo cerrado y se comporta de manera diferida (defer) por defecto.',
-        'El navegador desactiva la política de seguridad CORS para ese archivo.'
+        'Todas las variables creadas se comparten automáticamente en la ventana global window.',
+        'El archivo tiene su propio ámbito protegido (las variables no chocan con otros archivos) y no frena la carga visual del HTML.',
+        'El navegador desactiva la conexión a internet para ese script.',
+        'Solo se puede ejecutar una sola línea de código en todo el archivo.'
       ],
-      correctIndex: 2,
-      explanation: 'Los módulos ES6 nativos en navegadores encapsulan su propio ámbito (no contaminan window), habilitan "use strict" por defecto y se descargan de forma diferida (defer) sin necesidad de añadir el atributo explícito.'
+      correctIndex: 1,
+      explanation: 'Los módulos modernos aíslan sus variables para que no colisionen con las de otros ficheros y se descargan de forma diferida (como defer) para no entorpecer el dibujo de la página.'
     },
     {
       id: 'ra1-quiz-12',
-      topicTag: 'Criterio f) Auditoría y Core Web Vitals',
+      topicTag: 'Criterio f) Auditorías con Lighthouse',
       difficulty: 'Básico',
       difficultyClass: 'diff-facil',
-      question: 'En una auditoría de rendimiento web con Google Lighthouse, ¿qué métrica Core Web Vital mide la estabilidad visual evitando que los elementos de la interfaz salten de posición bruscamente durante la carga?',
+      question: '¿Qué cuatro aspectos fundamentales evalúa la herramienta Google Lighthouse para calificar la calidad de una página web con notas del 0 al 100?',
       options: [
-        'LCP (Largest Contentful Paint)',
-        'CLS (Cumulative Layout Shift)',
-        'INP (Interaction to Next Paint)',
-        'FCP (First Contentful Paint)'
+        'Rendimiento, Accesibilidad, Buenas Prácticas y SEO (Posicionamiento).',
+        'Velocidad del procesador, Memoria gráfica, Espacio en disco y Temperatura de la CPU.',
+        'Número de enlaces a redes sociales, Tipografía de Windows, Cantidad de clics y Volumen de audio.',
+        'Versión del sistema operativo, Marca del monitor, Conexión Bluetooth y Formato de teclado.'
       ],
-      correctIndex: 1,
-      explanation: 'CLS (Cumulative Layout Shift) cuantifica la suma total de cambios inesperados en el diseño que ocurren mientras el usuario lee o interactúa con la página (por ejemplo, imágenes que cargan sin dimensiones reservadas width/height).'
+      correctIndex: 0,
+      explanation: 'Lighthouse analiza cuatro pilares esenciales del desarrollo web: Rendimiento (velocidad de carga), Accesibilidad (facilidad de uso para todos), Buenas Prácticas (seguridad y estándares) y SEO (visibilidad en buscadores).'
     }
   ],
 
