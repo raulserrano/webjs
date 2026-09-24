@@ -36,11 +36,11 @@ export const RA2_CONTENT = {
         <h4>D. Depuración Profesional: DevTools y la sentencia <code>debugger</code></h4>
         <p>Para verificar el código, todo desarrollador de FP debe dominar la consola de las Chrome/Firefox DevTools (F12):</p>
         <ul>
-          <li><code>console.log()</code>: Registro estándar de información.</li>
-          <li><code>console.warn()</code> / <code>console.error()</code>: Mensajes con iconos y colores distintivos de advertencia o fallo.</li>
-          <li><code>console.table()</code>: Renderiza matrices u objetos en formato de tabla interactiva.</li>
-          <li><code>console.time()</code> y <code>console.timeEnd()</code>: Mide el tiempo de ejecución de un bloque de código en milisegundos.</li>
-          <li><code>debugger</code>: Actúa como un punto de interrupción (breakpoint) programático que pausa la ejecución en DevTools permitiendo inspeccionar la pila de llamadas (Call Stack).</li>
+          <li><code>console.log()</code>: Muestra mensajes informativos, números o cadenas de texto.</li>
+          <li><code>console.warn()</code>: Muestra mensajes de advertencia preventivos con icono amarillo.</li>
+          <li><code>console.error()</code>: Muestra mensajes de error en color rojo distintivo.</li>
+          <li><code>console.time()</code> y <code>console.timeEnd()</code>: Permite medir el tiempo de ejecución en milisegundos entre ambas llamadas.</li>
+          <li><code>debugger</code>: Actúa como un punto de interrupción (breakpoint) programático que pausa la ejecución en DevTools.</li>
         </ul>
       `,
       callout: {
@@ -51,27 +51,25 @@ export const RA2_CONTENT = {
       examples: [
         {
           id: 'ex-console-tools',
-          title: 'Ejemplo Práctico 1: El poder de la API Console y medición de tiempos',
-          description: 'Ejecuta el código para observar cómo formatear logs y medir el rendimiento.',
-          initialCode: `// Demostración de métodos avanzados de la Consola
-console.time("Procesamiento de datos");
+          title: 'Ejemplo Práctico 1: El uso de la consola (console) y medición de tiempos',
+          description: 'Ejecuta el código para observar cómo enviar cadenas y números a la consola y medir tiempos.',
+          initialCode: `// Demostración de métodos de la Consola con números y cadenas de texto
+console.time("Tiempo de proceso");
 
-const alumnosFP = [
-  { id: 1, nombre: "Lucía García", modulo: "DAW Cliente", nota: 9.5 },
-  { id: 2, nombre: "Marcos Ruiz", modulo: "DAW Cliente", nota: 7.2 },
-  { id: 3, nombre: "Elena Vidal", modulo: "DAW Cliente", nota: 8.8 }
-];
+console.log("1. Registro estándar con texto:");
+console.log("Bienvenido al curso de Desarrollo Web en Entorno Cliente.");
 
-console.log("1. Registro estándar:");
-console.log("Alumnos cargados:", alumnosFP.length);
+console.log("2. Enviando números y resultados de operaciones:");
+console.log("Horas lectivas semanales:", 6);
+console.log("Total de horas estimadas:", 6 * 14);
 
-console.warn("2. Advertencia preventiva:");
-console.warn("Atención: El plazo de entrega de la práctica finaliza el viernes.");
+console.warn("3. Advertencia preventiva (aviso):");
+console.warn("Atención: Recuerda repasar los conceptos antes de continuar.");
 
-console.log("3. Visualización con console.table:");
-console.table(alumnosFP);
+console.error("4. Mensaje de error (fallo simulado):");
+console.error("Error: Se ha producido un fallo en los datos.");
 
-console.timeEnd("Procesamiento de datos");`
+console.timeEnd("Tiempo de proceso");`
         }
       ]
     },
@@ -136,28 +134,25 @@ console.timeEnd("Procesamiento de datos");`
           id: 'ex-scope-tdz',
           title: 'Ejemplo Práctico 2: Ámbito de bloque vs Ámbito de var',
           description: 'Compara qué ocurre al acceder a variables fuera de un bloque if.',
-          initialCode: `function demostrarAmbito() {
-  console.log("--- Inicio de prueba de ámbito ---");
-  
-  if (true) {
-    var variableVar = "Soy accesible en toda la función (var)";
-    let variableLet = "Solo existo dentro de este bloque { }";
-    const variableConst = 3.14159;
-    
-    console.log("Dentro del if:");
-    console.log("variableLet:", variableLet);
-    console.log("variableConst:", variableConst);
-  }
+          initialCode: `// Demostración de ámbito de bloque sin funciones
+console.log("--- Inicio de prueba de ámbito ---");
 
-  console.log("Fuera del if:");
-  console.log("variableVar:", variableVar); // Funciona (se fugó del bloque)
-
+if (true) {
+  var variableVar = "Soy accesible fuera de este bloque (var no tiene ámbito de bloque)";
+  let variableLet = "Solo existo dentro de este bloque { }";
+  const variableConst = 3.14159;
   
-    console.log(variableLet); // ReferenceError
-  
+  console.log("Dentro del bloque if:");
+  console.log("variableLet:", variableLet);
+  console.log("variableConst:", variableConst);
+  console.log("variableVar:", variableVar);
 }
 
-demostrarAmbito();`
+console.log("Fuera del bloque if:");
+console.log("variableVar:", variableVar); // Funciona porque var no respeta las llaves del bloque
+
+// Si descomentas la siguiente línea, verás que let no existe fuera de su bloque:
+// console.log(variableLet); // ReferenceError: variableLet is not defined`
         }
       ]
     },
@@ -232,24 +227,27 @@ console.log(informe);`
       id: 'operadores-expresiones',
       title: '4. Operadores, Asignaciones y Evaluación en Cortocircuito',
       criteriaRef: 'Criterios b), e)',
-      description: 'Operadores aritméticos, asignación compuesta, comparación estricta vs abstracta, cortocircuito lógico (&&, ||), coalescencia nula (??) y encadenamiento opcional (?. ).',
+      description: 'Operadores aritméticos, asignación compuesta, comparación estricta vs débil, operadores lógicos (&&, ||, !) y coalescencia nula (??).',
       theoryHtml: `
         <p>Los operadores permiten transformar y comparar valores para construir expresiones lógicas y matemáticas en nuestros programas.</p>
 
         <h4>A. Igualdad Estricta (<code>===</code>) vs Igualdad Débil (<code>==</code>)</h4>
-        <p><strong>REGLA FUNDAMENTAL DE CLIENTE:</strong> Utiliza SIEMPRE <code>===</code> (triple igual) y <code>!==</code>. El operador <code>==</code> realiza una coerción implícita de tipos que provoca resultados erráticos (por ejemplo, <code>0 == ""</code> evalúa a <code>true</code>, mientras que <code>0 === ""</code> es <code>false</code>).</p>
+        <p><strong>REGLA FUNDAMENTAL DE CLIENTE:</strong> Utiliza SIEMPRE <code>===</code> (triple igual) y <code>!==</code>.</p>
+        <p>El operador <code>==</code> (doble igual) intenta convertir automáticamente los valores para que sean del mismo tipo antes de compararlos. Esto provoca resultados confusos e inesperados (por ejemplo, convierte el texto vacío <code>""</code> al número <code>0</code> y considera que <code>0 == ""</code> es <code>true</code>).</p>
+        <p>En cambio, <code>===</code> (triple igual) compara tanto el valor como el tipo de dato sin hacer conversiones automáticas, por lo que <code>0 === ""</code> da <code>false</code> (un número nunca es igual a un texto).</p>
 
-        <h4>B. Evaluación en Cortocircuito (Short-Circuit Evaluation)</h4>
-        <p>En expresiones lógicas, JavaScript evalúa de izquierda a derecha y se detiene en cuanto se determina el resultado:</p>
+        <h4>B. Operadores Lógicos</h4>
+        <p>Permiten evaluar y combinar condiciones booleanas (<code>&&</code> para "Y", <code>||</code> para "O", y <code>!</code> para negación o "NO").</p>
+        <p>Además, funcionan mediante <strong>evaluación en cortocircuito</strong> (se detienen en cuanto se determina el resultado final, sin evaluar el resto):</p>
         <ul>
-          <li><code>A && B</code>: Si <code>A</code> es falso, retorna <code>A</code> de inmediato sin evaluar <code>B</code>. Si <code>A</code> es verdadero, retorna <code>B</code>.</li>
-          <li><code>A || B</code>: Si <code>A</code> es verdadero, retorna <code>A</code> de inmediato sin evaluar <code>B</code>. Si <code>A</code> es falso, retorna <code>B</code>.</li>
+          <li><code>A && B</code>: Si <code>A</code> es falso, se detiene y devuelve <code>A</code> de inmediato sin evaluar <code>B</code>. Si <code>A</code> es verdadero, evalúa y retorna <code>B</code>.</li>
+          <li><code>A || B</code>: Si <code>A</code> es verdadero, se detiene y devuelve <code>A</code> de inmediato sin evaluar <code>B</code>. Si <code>A</code> es falso, evalúa y retorna <code>B</code>.</li>
         </ul>
 
-        <h4>C. Operadores Modernos ES2020: <code>??</code> y <code>?.</code></h4>
+        <h4>C. Operador de Coalescencia Nula (<code>??</code>)</h4>
+        <p>El operador de <strong>coalescencia nula (<code>??</code>)</strong> se utiliza para asignar valores por defecto de forma segura:</p>
         <ul>
-          <li><strong>Nullish Coalescing (<code>??</code>)</strong>: A diferencia de <code>||</code> (que sustituye valores como <code>0</code> o <code>""</code> porque son falsy), <code>??</code> solo sustituye si el valor es estrictamente <code>null</code> o <code>undefined</code>.</li>
-          <li><strong>Optional Chaining (<code>?.</code>)</strong>: Permite leer propiedades anidadas de forma segura sin provocar un error si la referencia intermedia es nula.</li>
+          <li>A diferencia de <code>||</code> (que sustituye valores como el número <code>0</code> o el texto vacío <code>""</code> porque los considera valores falsos), el operador <code>??</code> <strong>únicamente sustituye el valor si este es <code>null</code> o <code>undefined</code></strong>.</li>
         </ul>
       `,
       callout: {
@@ -260,94 +258,91 @@ console.log(informe);`
       examples: [
         {
           id: 'ex-operadores-modernos',
-          title: 'Ejemplo Práctico 4: Cortocircuito, Coalescencia Nula y Comparación',
+          title: 'Ejemplo Práctico 4: Operadores Lógicos, Comparación y Coalescencia Nula',
           description: 'Observa la diferencia fundamental entre el operador || y el operador ?? ante el valor 0.',
-          initialCode: `// Comparación de Igualdad
-console.log("0 == ''  ->", 0 == '');   // true (coerción peligrosa)
-console.log("0 === '' ->", 0 === ''); // false (comparación estricta y segura)
+          initialCode: `// 1. Comparación de Igualdad (Estricta vs Débil)
+console.log("0 == ''  ->", 0 == '');   // true (conversión automática confusa)
+console.log("0 === '' ->", 0 === ''); // false (comparación estricta segura)
 
-// Diferencia crucial entre || y ??
+// 2. Operadores Lógicos y Evaluación en Cortocircuito
+const tienePermiso = true;
+const tieneSaldo = false;
+
+console.log("¿Acceso permitido? (&&):", tienePermiso && tieneSaldo); // false
+console.log("¿Alguna condición válida? (||):", tienePermiso || tieneSaldo); // true
+
+// 3. Diferencia crucial entre || y ??
 const intentosUsuario = 0; // El usuario tiene 0 intentos válidos
 
-// Con || (Reemplaza porque 0 es FALSY)
+// Con || (reemplaza por 3 porque considera el 0 como valor falso/falsy)
 const intentosDefectoOR = intentosUsuario || 3;
-console.log("Con || intentos:", intentosDefectoOR); // Imprime 3 (¡Incorrecto!)
+console.log("Con || intentos:", intentosDefectoOR); // Imprime 3 (¡Inesperado!)
 
-// Con ?? (Solo reemplaza si es null o undefined)
+// Con ?? (solo reemplaza si la variable es null o undefined, respetando el 0)
 const intentosDefectoNullish = intentosUsuario ?? 3;
-console.log("Con ?? intentos:", intentosDefectoNullish); // Imprime 0 (¡Correcto!)
-
-// Encadenamiento Opcional ?.
-const configuracion = {
-  usuario: {
-    nombre: "Ana",
-    contacto: null
-  }
-};
-
-// Evitamos el temido TypeError: Cannot read properties of null
-console.log("Teléfono seguro:", configuracion.usuario.contacto?.telefono ?? "No disponible");`
+console.log("Con ?? intentos:", intentosDefectoNullish); // Imprime 0 (¡Correcto!)`
         }
       ]
     },
 
     {
       id: 'conversiones-coercion',
-      title: '5. Conversiones y Coerción de Tipos (Type Casting)',
+      title: '5. Conversiones de Tipos de Datos (Type Casting)',
       criteriaRef: 'Criterios b), d)',
-      description: 'Conversión explícita con Number(), String(), Boolean(), parseInt vs parseFloat, los 8 valores falsy y trampas de coerción implícita.',
+      description: 'Conversión explícita con Number(), String(), Boolean(), parseInt vs parseFloat, los 8 valores falsy y conversiones automáticas en operaciones.',
       theoryHtml: `
-        <p>La coerción de tipos es la conversión automática o implícita de valores de un tipo de datos a otro. Es una de las fuentes más frecuentes de errores lógicos en el desarrollo cliente.</p>
+        <p>En JavaScript, los datos pueden cambiar de un tipo a otro de dos maneras: mediante una <strong>conversión explícita</strong> (cuando el programador la solicita de forma manual en el código) o mediante una <strong>conversión automática</strong> (cuando el propio lenguaje transforma el tipo de un valor para poder realizar una operación).</p>
+        <p>Comprender cómo funcionan estas conversiones es esencial para evitar fallos lógicos en el desarrollo de aplicaciones web.</p>
 
-        <h4>A. Conversión Explícita (Recomendada)</h4>
+        <h4>A. Conversión Explícita o Manual (Recomendada)</h4>
         <ul>
-          <li>A String: <code>String(valor)</code> o <code>valor.toString()</code>.</li>
-          <li>A Number: <code>Number(valor)</code>, <code>parseInt(str, 10)</code>, <code>parseFloat(str)</code>.</li>
-          <li>A Boolean: <code>Boolean(valor)</code> o la doble negación <code>!!valor</code>.</li>
+          <li><strong>A texto (String)</strong>: <code>String(valor)</code> o <code>valor.toString()</code>.</li>
+          <li><strong>A número (Number)</strong>: <code>Number(valor)</code>, <code>parseInt(texto, 10)</code>, <code>parseFloat(texto)</code>.</li>
+          <li><strong>A booleano (Boolean)</strong>: <code>Boolean(valor)</code> o la doble negación <code>!!valor</code>.</li>
         </ul>
 
         <h4>B. La Lista Oficial de los 8 Valores Falsy en JavaScript</h4>
-        <p>Al ser evaluados en un contexto booleano (como la condición de un <code>if</code>), solo <strong>ocho</strong> valores se consideran falsos. Todo lo demás (incluidos <code>[]</code> y <code>{}</code>) es <strong>truthy</strong>:</p>
+        <p>Al ser evaluados en un contexto booleano (como la condición de un <code>if</code>), solo <strong>ocho</strong> valores se consideran falsos (<em>falsy</em>). Todos los demás valores se consideran verdaderos (<em>truthy</em>):</p>
         <ol>
           <li><code>false</code></li>
           <li><code>0</code> (cero numérico)</li>
           <li><code>-0</code> (cero negativo)</li>
           <li><code>0n</code> (BigInt cero)</li>
-          <li><code>""</code> (cadena vacía)</li>
-          <li><code>null</code></li>
-          <li><code>undefined</code></li>
-          <li><code>NaN</code> (Not a Number)</li>
+          <li><code>""</code> (cadena de texto vacía)</li>
+          <li><code>null</code> (ausencia deliberada de valor)</li>
+          <li><code>undefined</code> (valor no asignado)</li>
+          <li><code>NaN</code> (Not a Number - valor numérico no válido)</li>
         </ol>
 
         <h4>C. La Peculiaridad de NaN</h4>
-        <p><code>NaN</code> representa el resultado de una operación matemática no válida (ej: <code>"hola" * 2</code>). Regla inmutable: <code>NaN</code> <strong>no es igual a nada, ni siquiera a sí mismo</strong> (<code>NaN === NaN</code> devuelve <code>false</code>). Para comprobarlo se debe usar <code>Number.isNaN(valor)</code>.</p>
+        <p><code>NaN</code> representa el resultado de una operación matemática que no tiene sentido numérico (por ejemplo, <code>"hola" * 2</code>). Regla inmutable: <code>NaN</code> <strong>no es igual a nada, ni siquiera a sí mismo</strong> (<code>NaN === NaN</code> devuelve <code>false</code>). Para comprobarlo se debe usar <code>Number.isNaN(valor)</code>.</p>
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Trampa Típica de Examen: Coerción con + vs Otros Operadores',
-        text: 'El operador <code>+</code> está sobrecargado: si uno de los operandos es String, <strong>concatena</strong> (<code>"5" + 2 = "52"</code>). En cambio, <code>-</code>, <code>*</code>, <code>/</code> fuerzan siempre conversión numérica (<code>"5" - 2 = 3</code>).'
+        title: 'Trampa Típica de Examen: Conversión Automática con + vs Otros Operadores',
+        text: 'El operador <code>+</code> tiene una doble función: si uno de los operandos es una cadena de texto, <strong>los une concatenándolos</strong> (<code>"5" + 2 = "52"</code>). En cambio, los operadores <code>-</code>, <code>*</code> y <code>/</code> convierten automáticamente el texto a número para hacer el cálculo numérico (<code>"5" - 2 = 3</code>).'
       },
       examples: [
         {
           id: 'ex-coercion-falsy',
-          title: 'Ejemplo Práctico 5: Conversiones explícitas y detección de Falsy',
-          description: 'Prueba de coerción implícita y verificación de arrays vacíos.',
-          initialCode: `// Curiosidades del operador + frente a -
-console.log('"5" + 3  =>', "5" + 3);  // Concatenación: "53"
-console.log('"5" - 3  =>', "5" - 3);  // Coerción matemática: 2
-console.log('"5" * "2" =>', "5" * "2"); // 10
+          title: 'Ejemplo Práctico 5: Conversiones explícitas y detección de valores Falsy',
+          description: 'Prueba de conversiones automáticas al operar y verificación de valores falsy.',
+          initialCode: `// Comportamiento del operador + frente a - y *
+console.log('"5" + 3  =>', "5" + 3);  // Une cadenas (concatenación): "53"
+console.log('"5" - 3  =>', "5" - 3);  // Convierte el texto a número: 2
+console.log('"5" * "2" =>', "5" * "2"); // Convierte ambos a número: 10
 
-// Cuidado con NaN
-const resultadoErroneo = Number("texto-invalido");
-console.log("resultadoErroneo es:", resultadoErroneo);
+// Cuidado con el valor especial NaN
+const resultadoErroneo = Number("texto-no-numerico");
+console.log("resultadoErroneo es:", resultadoErroneo); // NaN
 console.log("¿resultadoErroneo === NaN?:", resultadoErroneo === NaN); // false!
 console.log("Forma correcta -> Number.isNaN():", Number.isNaN(resultadoErroneo)); // true
 
-// Comprobación de Truthy / Falsy
-console.log("Boolean(0):", Boolean(0));           // false
-console.log("Boolean(''):", Boolean(''));         // false
-console.log("Boolean([]):", Boolean([]));         // true (¡los arrays vacíos son truthy!)
-console.log("Boolean({}):", Boolean({}));         // true (los objetos vacíos son truthy!)`
+// Comprobación de valores Verdaderos (Truthy) y Falsos (Falsy)
+console.log("Boolean(0):", Boolean(0));                   // false (falsy)
+console.log("Boolean(''):", Boolean(''));                 // false (falsy)
+console.log("Boolean('Hola DAW'):", Boolean('Hola DAW')); // true (truthy: texto con contenido)
+console.log("Boolean(42):", Boolean(42));                 // true (truthy: número distinto de cero)`
         }
       ]
     },
@@ -356,7 +351,7 @@ console.log("Boolean({}):", Boolean({}));         // true (los objetos vacíos s
       id: 'estructuras-decisiones',
       title: '6. Estructuras de Control: Decisiones y Patrón Early Return',
       criteriaRef: 'Criterio e)',
-      description: 'Sentencias if, else if, else, operador ternario, switch y buenas prácticas de código limpio eliminando el anidamiento excesivo (Arrow Code).',
+      description: 'Sentencias if, else if, else, operador ternario, switch y buenas prácticas de código limpio eliminando el anidamiento excesivo.',
       theoryHtml: `
         <p>Las sentencias condicionales permiten alterar el flujo de ejecución de un programa en función de si una expresión se evalúa como verdadera o falsa.</p>
 
@@ -577,37 +572,36 @@ var mensaje = "Hola Mundo de FP";`,
       id: 'quiz-2',
       difficulty: 'Medio',
       difficultyClass: 'diff-medio',
-      topicTag: 'Tipos & Coerción',
-      question: '¿Qué valor devuelve la expresión: typeof typeof null ?',
-      codeSnippet: `console.log(typeof typeof null);`,
+      topicTag: 'Tipos y Conversión',
+      question: 'Si recibes de un formulario web el texto "25" y quieres sumarle 5 numéricamente para obtener el número 30, ¿cuál es la forma correcta de hacerlo?',
+      codeSnippet: `const valorTexto = "25";
+// ¿Cómo sumamos 5 para obtener el número 30?`,
       options: [
-        '"null"',
-        '"object"',
-        '"string"',
-        '"undefined"'
+        'const total = valorTexto + 5;',
+        'const total = Number(valorTexto) + 5;',
+        'const total = valorTexto.toNumber() + 5;',
+        'const total = (number)valorTexto + 5;'
       ],
-      correctIndex: 2,
-      explanation: 'Primero se evalúa "typeof null", que por el bug histórico de JavaScript devuelve la cadena "object". Luego se evalúa "typeof \'object\'", y como cualquier resultado del operador typeof es siempre una cadena de texto (string), el resultado final es "string".'
+      correctIndex: 1,
+      explanation: 'En JavaScript, los datos procedentes de formularios o entradas HTML son cadenas de texto (string). Si usamos el operador "+" con un texto ("25" + 5), JavaScript concatena produciendo "255". Para realizar una suma numérica real debemos convertir previamente la cadena a número utilizando Number(valorTexto) o parseInt(valorTexto, 10).'
     },
     {
       id: 'quiz-3',
-      difficulty: 'Examen FP',
-      difficultyClass: 'diff-examen',
-      topicTag: 'Operadores & Igualdad',
-      question: '¿Cuál de las siguientes comparaciones evaluará a FALSE en JavaScript?',
-      codeSnippet: `// Compara las siguientes expresiones:
-1) "" == false
-2) 0 == false
-3) null == undefined
-4) NaN === NaN`,
+      difficulty: 'Fácil',
+      difficultyClass: 'diff-facil',
+      topicTag: 'Operadores de Comparación',
+      question: '¿Cuál es el resultado de comparar el número 10 con la cadena de texto "10" usando el operador de igualdad estricta (===)?',
+      codeSnippet: `const numero = 10;
+const texto = "10";
+console.log(numero === texto);`,
       options: [
-        '"" == false',
-        '0 == false',
-        'null == undefined',
-        'NaN === NaN'
+        'true, porque representan el mismo valor numérico',
+        'false, porque son de tipos de datos diferentes (number vs string)',
+        'undefined',
+        'Lanza un TypeError por comparar tipos distintos'
       ],
-      correctIndex: 3,
-      explanation: 'En JavaScript, NaN (Not-a-Number) es el único valor en todo el lenguaje que nunca es igual a ningún valor, ¡ni siquiera a sí mismo! Por tanto, "NaN === NaN" es false. Por el contrario, en igualdad débil (==), "" y 0 se coercen a falso, y null == undefined es true según las reglas de ECMAScript.'
+      correctIndex: 1,
+      explanation: 'El operador de igualdad estricta (===) compara tanto el valor como el tipo de dato sin conversiones automáticas. Como un operando es de tipo "number" y el otro de tipo "string", la expresión siempre evalúa a false. Para que sea true, ambos operandos deben ser del mismo tipo y contener el mismo valor.'
     },
     {
       id: 'quiz-4',
@@ -723,8 +717,8 @@ console.log(contador);`,
       id: 'quiz-10',
       difficulty: 'Examen FP',
       difficultyClass: 'diff-examen',
-      topicTag: 'Coerción Implícita',
-      question: '¿Qué imprime por consola la ejecución de las siguientes operaciones con coerción?',
+      topicTag: 'Conversión Automática de Tipos',
+      question: '¿Qué imprime por consola la ejecución de las siguientes operaciones al combinar números y cadenas de texto?',
       codeSnippet: `const a = 5 + "5";
 const b = 5 - "5";
 console.log(a, b);`,
@@ -735,7 +729,7 @@ console.log(a, b);`,
         '10 NaN'
       ],
       correctIndex: 1,
-      explanation: 'El operador binario "+" con un operando tipo string actúa como operador de concatenación textual, convirtiendo el 5 numérico en string y produciendo "55". Por el contrario, el operador de resta "-" no existe para cadenas de texto, por lo que el motor de JavaScript fuerza la conversión numérica del string "5" a número 5, calculando 5 - 5 = 0.'
+      explanation: 'El operador binario "+" con un operando de tipo string actúa concatenando texto, por lo que une el 5 numérico con el "5" produciendo la cadena "55". Por el contrario, el operador de resta "-" no existe para cadenas de texto, por lo que el motor de JavaScript convierte automáticamente el texto "5" al número 5, calculando 5 - 5 = 0.'
     },
     {
       id: 'quiz-11',
@@ -771,24 +765,23 @@ console.log(salida);`,
       id: 'quiz-12',
       difficulty: 'Medio',
       difficultyClass: 'diff-medio',
-      topicTag: 'Bucles: for...in vs for...of',
-      question: '¿Qué mostrará la consola al ejecutar el siguiente fragmento con arrays e iteradores?',
-      codeSnippet: `const notas = [7, 8, 9];
-let resIn = "";
-let resOf = "";
+      topicTag: 'Estructuras de Control: Bucles',
+      question: '¿Cuántas veces se ejecutará el cuerpo del siguiente bucle do...while?',
+      codeSnippet: `let contador = 10;
 
-for (const x in notas) resIn += x;
-for (const y of notas) resOf += y;
+do {
+  contador++;
+} while (contador < 5);
 
-console.log(resIn, resOf);`,
+console.log(contador);`,
       options: [
-        '"789" "789"',
-        '"012" "789"',
-        '"789" "012"',
-        '"012" "012"'
+        '0 veces (porque la condición es falsa desde el principio)',
+        '1 vez (y la variable contador terminará valiendo 11)',
+        'Infinitas veces (se produce un bucle infinito)',
+        '5 veces'
       ],
       correctIndex: 1,
-      explanation: '"for...in" está diseñado para iterar sobre las propiedades o índices enumerables de un objeto o array (en un array son los índices "0", "1", "2"). En cambio, "for...of" (introducido en ES6) itera sobre los valores reales de cualquier colección iterable, recorriendo los elementos 7, 8 y 9.'
+      explanation: 'A diferencia del bucle "while" (que evalúa la condición antes de entrar al cuerpo del bucle), el bucle "do...while" ejecuta su bloque de código al menos una vez de forma garantizada antes de evaluar la condición al final. Aunque la condición 11 < 5 es falsa, la primera iteración ya se ejecutó, dejando contador con el valor 11.'
     },
     {
       id: 'quiz-13',

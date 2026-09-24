@@ -1,0 +1,14 @@
+## PARTE DE TEORIA.
+
+#En Sección 1. Los ejemplo usan objetos que todavía no se ha estudiado, poner ejemplos de console únicamente enviando a consola números o cadenas.
+#En Sección 2. Quitar el uso de funciones del ejemplo de código ya que no las hemos estudiado todavia.
+#En Sección 4. -La expresión realizar una coerción implicita de tipos es compleja, explícalo de forma más sencilla.
+            - Sustituye el título de apartado B. Por Operadoes lógicos.
+            - Elimiona las referencia a Optional Chaining (?.): 
+#En Sección 5. Adapta la sección para aue no utilice el término coerción de tipos.
+
+## CUESTIONES DE AUTOVALUACIÓN
+
+# Cuestión 2. Cambiala por una más útil para aprender a programar, no algo tan raro que no es necesario.
+# Cuestión 3. Cambiala por una más útil para aprender a programar, no algo tan raro que no es necesario.
+# Cuestión 12. Hace referencia a Raays que todavia no los hemos visto en la teoria, sustituyela por otra.

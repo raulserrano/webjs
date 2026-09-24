@@ -51,7 +51,7 @@ export const CURRICULUM_DATA = [
       'Variables (let, const, var), Scope (Bloque, Función, Global) y TDZ',
       'Tipos de datos primitivos vs referencia y literales',
       'Operadores aritméticos, lógicos (cortocircuito) y asignaciones',
-      'Conversiones explícitas vs coerción implícita y valores truthy/falsy',
+      'Conversiones explícitas vs conversiones automáticas y valores truthy/falsy',
       'Decisiones (if-else, early return, operador ternario, switch)',
       'Bucles (for, while, do-while, break, continue)',
       'Buenas prácticas, JSDoc y depuración profesional'
