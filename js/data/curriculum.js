@@ -88,11 +88,11 @@ export const CURRICULUM_DATA = [
     title: 'Estructuras de Datos, Funciones y POO',
     shortTitle: 'Arrays, Funciones y POO',
     description: 'Programa código para clientes Web analizando y utilizando estructuras definidas por el usuario.',
-    status: 'roadmap',
+    status: 'available',
     durationHours: 14,
     criteria: [
       'a) Clasificación y uso de funciones predefinidas.',
-      'b) Definición e invocación de funciones de usuario (Arrow, Callbacks, Clousures).',
+      'b) Definición e invocación de funciones de usuario (Arrow, Callbacks, Closures).',
       'c) Características de creación y manipulación de Arrays.',
       'd) Métodos modernos de arrays (map, filter, reduce, find, some, every).',
       'e) Características de orientación a objetos en JavaScript.',
@@ -102,10 +102,10 @@ export const CURRICULUM_DATA = [
       'i) Depuración y documentación.'
     ],
     topicsSummary: [
-      'Funciones y Clousures',
-      'Métodos funcionales de Arrays',
-      'Objetos literales y Clases ES6',
-      'Prototipos y desestructuración'
+      'Definición e invocación de funciones (Arrow, Rest, Callbacks)',
+      'Ámbitos léxicos y Clausuras (Closures)',
+      'Arrays y métodos funcionales (map, filter, reduce)',
+      'Objetos literales, Clases ES6, herencia e inmutabilidad'
     ]
   },
   {

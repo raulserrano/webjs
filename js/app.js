@@ -138,7 +138,10 @@ class App {
           <button class="btn-code-action btn-run-code" id="btn-to-ra3" style="padding: 10px 20px; font-size: 0.9rem; background: var(--color-cyan); color: #fff;">
             → RA3: Objetos Nativos y BOM
           </button>
-          <button class="btn-code-action btn-run-code" id="btn-to-ra6" style="padding: 10px 20px; font-size: 0.9rem; background: var(--color-brand); color: #fff;">
+          <button class="btn-code-action btn-run-code" id="btn-to-ra4" style="padding: 10px 20px; font-size: 0.9rem; background: var(--color-brand); color: #fff;">
+            → RA4: Arrays, Funciones y POO
+          </button>
+          <button class="btn-code-action btn-run-code" id="btn-to-ra6" style="padding: 10px 20px; font-size: 0.9rem; background: var(--bg-surface-2); color: var(--text-primary); border: var(--border-subtle);">
             → RA6: Manipulación del DOM
           </button>
           <button class="btn-code-action" id="btn-view-roadmap" style="padding: 10px 20px; font-size: 0.9rem;">
@@ -155,6 +158,11 @@ class App {
 
     document.getElementById('btn-to-ra3')?.addEventListener('click', () => {
       appStore.setActiveRa('ra3');
+      appStore.setActiveTab('theory');
+    });
+
+    document.getElementById('btn-to-ra4')?.addEventListener('click', () => {
+      appStore.setActiveRa('ra4');
       appStore.setActiveTab('theory');
     });
 

@@ -51,10 +51,10 @@ export class NavigationComponent {
         <div class="nav-section-title">Resultados de Aprendizaje</div>
         <div class="ra-nav-list" id="ra-nav-items-container">
           ${CURRICULUM_DATA.map(ra => {
-            const isActive = state.activeRaId === ra.id;
-            const badge = this.getBadgeInfo(ra, isActive);
+      const isActive = state.activeRaId === ra.id;
+      const badge = this.getBadgeInfo(ra, isActive);
 
-            return `
+      return `
               <button 
                 class="ra-nav-item ${isActive ? 'active' : ''}" 
                 data-ra-id="${ra.id}"
@@ -70,7 +70,7 @@ export class NavigationComponent {
                 </div>
               </button>
             `;
-          }).join('')}
+    }).join('')}
         </div>
       </nav>
 

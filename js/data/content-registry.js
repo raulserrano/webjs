@@ -7,12 +7,14 @@
 import { RA1_CONTENT } from './ra1-content.js';
 import { RA2_CONTENT } from './ra2-content.js';
 import { RA3_CONTENT } from './ra3-content.js';
+import { RA4_CONTENT } from './ra4-content.js';
 import { RA6_CONTENT } from './ra6-content.js';
 
 export const RA_CONTENT_REGISTRY = {
   ra1: RA1_CONTENT,
   ra2: RA2_CONTENT,
   ra3: RA3_CONTENT,
+  ra4: RA4_CONTENT,
   ra6: RA6_CONTENT
 };
 
