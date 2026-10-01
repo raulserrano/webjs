@@ -57,7 +57,7 @@ export const RA3_CONTENT = {
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Pregunta Clásica de Examen FP',
+        title: 'Pregunta',
         text: '¿Qué valor imprime <code>window.profesor</code> si declaramos <code>const profesor = "Raúl";</code> en el ámbito superior de un script? <strong>undefined</strong>. Las variables declaradas con <code>let</code> y <code>const</code> no se convierten en propiedades de <code>window</code>, a diferencia de la arcaica <code>var</code>.'
       },
       examples: [
@@ -423,7 +423,7 @@ const aleatorio = Math.floor(Math.random() * (max - min + 1)) + min;
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Pregunta Clásica de Examen FP: isNaN vs Number.isNaN',
+        title: 'Pregunta: isNaN vs Number.isNaN',
         text: '¿Qué devuelven <code>isNaN("123abc")</code> y <code>Number.isNaN("123abc")</code>? La función global <code>isNaN("123abc")</code> devuelve <strong>true</strong> porque primero intenta convertir el string a número (obteniendo <code>NaN</code>). En cambio, <code>Number.isNaN("123abc")</code> devuelve <strong>false</strong> porque el argumento no es de tipo number. ¡Usa siempre <code>Number.isNaN</code> para evitar falsos positivos!'
       },
       examples: [
@@ -1430,9 +1430,9 @@ console.log("Suma Total:", sumaTotal, "| Media:", mediaAritmetica);`,
           customCheck: (outputs) => {
             const { tiradasGeneradas, sumaTotal, mediaAritmetica } = outputs;
             return tiradasGeneradas.length === 1 &&
-                   tiradasGeneradas[0] >= 50 && tiradasGeneradas[0] <= 100 &&
-                   sumaTotal === tiradasGeneradas[0] &&
-                   mediaAritmetica === tiradasGeneradas[0];
+              tiradasGeneradas[0] >= 50 && tiradasGeneradas[0] <= 100 &&
+              sumaTotal === tiradasGeneradas[0] &&
+              mediaAritmetica === tiradasGeneradas[0];
           },
           customError: 'Una única tirada debe ser un entero en el rango [50, 100].'
         }

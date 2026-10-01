@@ -76,7 +76,7 @@ export const RA1_CONTENT = {
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Pregunta Clásica de Examen FP (DAW)',
+        title: 'Pregunta (DAW)',
         text: 'En una aplicación web, ¿por qué es obligatorio validar los datos de un formulario tanto en el cliente con JavaScript como en el servidor con el backend?<br><br><strong>Respuesta didáctica:</strong> Validar en el cliente sirve para <em>mejorar la experiencia del usuario</em>, avisándole al instante si ha olvidado un campo sin tener que esperar a internet. Pero <strong>nunca garantiza seguridad</strong>, ya que un atacante puede saltarse el navegador y enviar datos fraudulentos directamente. La validación en el servidor es la única que protege con total seguridad la base de datos.'
       },
       examples: [

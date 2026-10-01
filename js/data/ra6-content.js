@@ -327,7 +327,7 @@ console.log("\\n✓ Contador y resaltados visuales actualizados en el lienzo.");
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Pregunta Clásica de Examen FP',
+        title: 'Pregunta',
         text: '¿Cuál es la diferencia entre <code>padre.appendChild(nodo)</code> y <code>padre.append(nodo, "texto")</code>? <code>appendChild</code> solo acepta un único objeto Node y devuelve el nodo insertado; <code>append</code> acepta múltiples argumentos (tanto objetos Node como cadenas de texto plano convertidas automáticamente a TextNode) y no devuelve valor.'
       },
       examples: [
@@ -516,7 +516,7 @@ if (tarjeta.dataset.status === "detenido") {
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Pregunta Clásica de Examen FP',
+        title: 'Pregunta',
         text: 'Un botón tiene en CSS <code>.btn { width: 200px; }</code>. ¿Qué imprime <code>console.log(btn.style.width)</code>? Imprime <code>""</code> (cadena vacía). Para obtener <code>"200px"</code> es obligatorio usar <code>window.getComputedStyle(btn).width</code>.'
       },
       examples: [

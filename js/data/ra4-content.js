@@ -294,7 +294,7 @@ const copiaColores = [...colores];</code></pre>
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Pregunta Clásica de Examen FP',
+        title: 'Pregunta',
         text: '¿Qué diferencia hay entre <code>new Array(3)</code> y <code>[3]</code>? <code>new Array(3)</code> genera un array vacío de longitud 3 con 3 posiciones sin definir (empty slots). Por el contrario, <code>[3]</code> crea un array con un único elemento (el número 3) y longitud 1.'
       },
       examples: [
@@ -588,7 +588,7 @@ console.log(ana.notaMedia); // 8.85 (se accede como propiedad)</code></pre>
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Pregunta Clásica de Examen FP',
+        title: 'Pregunta',
         text: '¿Qué sucede si en el constructor de una clase hija que usa <code>extends</code> intentas hacer <code>this.propiedad = valor;</code> antes de invocar a <code>super()</code>? El motor de JavaScript lanza un <strong>ReferenceError</strong> inmediato, ya que el objeto <code>this</code> no existe en la memoria de la subclase hasta que el constructor padre (<code>super</code>) ha terminado de inicializarse.'
       },
       examples: [
@@ -1366,7 +1366,7 @@ const teclado = crearProductoCatalogo({
 console.log("PVP:", teclado.obtenerPVP()); // 60.5
 console.log("Venta:", teclado.vender(3));  // true -> quedan 7
 console.log("Stock actual:", teclado.stock);`
-        ,
+      ,
       hint: 'Usa function() tradicional para los métodos dentro del objeto retornado para que "this" apunte a la instancia del producto.',
       tests: [
         {

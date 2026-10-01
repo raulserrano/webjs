@@ -45,7 +45,7 @@ export const RA2_CONTENT = {
       `,
       callout: {
         type: 'fp-exam',
-        title: 'Pregunta Clásica de Examen FP',
+        title: 'Pregunta',
         text: 'Diferencia entre defer y async: "¿Cuál de los dos respeta el orden de los scripts y espera a que el DOM esté listo antes de ejecutarse?". Respuesta: <strong>defer</strong>. Async ejecuta apenas llega por red, sin respetar orden de inclusión.'
       },
       examples: [
